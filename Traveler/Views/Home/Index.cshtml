@@ -1,31 +1,28 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    ViewBag.RenderOutsideContainer = true;
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div class="container">
+        <h1>Witaj w Traveler!</h1>
+        <p>Traveler jest serwisem o podróżach, w którym możesz założyć profil, opisać swoje podróże, pokazać zdjęcia oraz komentować zdjęcia i podróże innych.</p>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Dla kogo?</h3>
+            <p>Dla wszystkich, którzy podróżują, nie tylko dla globtrotterów, ale również dla tych, którzy zwyczajnie jadą na wakacje</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Dlaczego warto?</h3>
+            <p>Opisując podróże i dodając zdjęcia tworzysz profil, który grupuje wszystkie Twoje wyjazdy w jednym miejscu - zamiast pisać maile do znajomych możesz dać im adres swojego profilu i tam publikować opisy i zdjęcia</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Co zyskuję?</h3>
+            <p>Wyjeżdżającym Traveler daje dostęp do najlepszych informacji - nikt nie opisze miejsca tak wiarygodnie jak inni turyści; relacje innych dają Ci pewność, że nie czytasz tendencyjnej reklamy, ale fakty</p>
+        </div>
     </div>
 </div>
