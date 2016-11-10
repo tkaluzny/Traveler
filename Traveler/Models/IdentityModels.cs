@@ -28,5 +28,7 @@ namespace Traveler.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Traveler.Models.Travel> Travels { get; set; }
     }
 }
