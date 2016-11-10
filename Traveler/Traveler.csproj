@@ -168,6 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TravelsController.cs" />
@@ -186,8 +188,26 @@
     <Compile Include="Migrations\201611101029586_Travel_Updated_User_Ref.Designer.cs">
       <DependentUpon>201611101029586_Travel_Updated_User_Ref.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611101622404_places.cs" />
+    <Compile Include="Migrations\201611101622404_places.Designer.cs">
+      <DependentUpon>201611101622404_places.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611101636121_city_in_travel.cs" />
+    <Compile Include="Migrations\201611101636121_city_in_travel.Designer.cs">
+      <DependentUpon>201611101636121_city_in_travel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611101651562_city_in_travel_2.cs" />
+    <Compile Include="Migrations\201611101651562_city_in_travel_2.Designer.cs">
+      <DependentUpon>201611101651562_city_in_travel_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611101717002_city_in_travel1.cs" />
+    <Compile Include="Migrations\201611101717002_city_in_travel1.Designer.cs">
+      <DependentUpon>201611101717002_city_in_travel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Travel.cs" />
@@ -241,6 +261,16 @@
     <Content Include="Views\Travels\Edit.cshtml" />
     <Content Include="Views\Travels\Index.cshtml" />
     <Content Include="Views\Shared\AccessDeniedError.cshtml" />
+    <Content Include="Views\Countries\Create.cshtml" />
+    <Content Include="Views\Countries\Delete.cshtml" />
+    <Content Include="Views\Countries\Details.cshtml" />
+    <Content Include="Views\Countries\Edit.cshtml" />
+    <Content Include="Views\Countries\Index.cshtml" />
+    <Content Include="Views\Cities\Create.cshtml" />
+    <Content Include="Views\Cities\Delete.cshtml" />
+    <Content Include="Views\Cities\Details.cshtml" />
+    <Content Include="Views\Cities\Edit.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -262,6 +292,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611101029586_Travel_Updated_User_Ref.resx">
       <DependentUpon>201611101029586_Travel_Updated_User_Ref.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101622404_places.resx">
+      <DependentUpon>201611101622404_places.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101636121_city_in_travel.resx">
+      <DependentUpon>201611101636121_city_in_travel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101651562_city_in_travel_2.resx">
+      <DependentUpon>201611101651562_city_in_travel_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101717002_city_in_travel1.resx">
+      <DependentUpon>201611101717002_city_in_travel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

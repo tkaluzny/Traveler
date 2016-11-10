@@ -14,18 +14,21 @@ namespace Traveler.Migrations
 
         protected override void Seed(Traveler.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Countries.AddOrUpdate(
+                c => c.Name,
+                new Models.Country { CountryID = 1, Name = "Polska" },
+                new Models.Country { CountryID = 1, Name = "Anglia" }
+                );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Cities.AddOrUpdate(
+                c => c.Name,
+                new Models.City { CityID = 1, CountryID = 1, Name = "Warszawa" },
+                new Models.City { CityID = 2, CountryID = 1, Name = "Kraków" },
+                new Models.City { CityID = 3, CountryID = 1, Name = "Lublin" },
+                new Models.City { CityID = 4, CountryID = 1, Name = "Opole" },
+                new Models.City { CityID = 5, CountryID = 2, Name = "Manchester" },
+                new Models.City { CityID = 6, CountryID = 2, Name = "Londyn" }
+                );
         }
     }
 }

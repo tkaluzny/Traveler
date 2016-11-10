@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -40,18 +41,32 @@ namespace Traveler.Controllers
         // GET: Travels/Create
         public ActionResult Create()
         {
+            ViewData["Country"] = new SelectList(db.Countries.ToList(), "CountryID", "Name");
             return View();
         }
 
         // POST: Travels/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TravelID,Name,Description")] Travel travel)
+        public ActionResult Create([Bind(Include = "Name,Description")] Travel travel, FormCollection formCollection)
         {
             if (ModelState.IsValid)
             {
                 // Assign current user id to travel.UserID property
                 travel.UserID = User.Identity.GetUserId();
+                travel.Cities = new HashSet<City>();
+
+                //if (formCollection["CityID"] != null)
+                //{
+                //    string[] ids = formCollection["CityID"].Split(',');
+
+                //    foreach (string id in ids)
+                //    {
+                //        City city = new City { CityID = int.Parse(id) };
+                //        travel.Cities.Add(city);
+                //    }
+                //}
+                
                 db.Travels.Add(travel);
                 db.SaveChanges();
                 return RedirectToAction("Index");

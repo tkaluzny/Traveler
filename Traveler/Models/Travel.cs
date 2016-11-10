@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Traveler.Models
 {
@@ -14,5 +15,7 @@ namespace Traveler.Models
         public string Description { get; set; }
         
         public string UserID { get; set; }
+        
+        public virtual ICollection<City> Cities { get; set; }
     }
 }
