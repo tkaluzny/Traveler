@@ -56,18 +56,19 @@ namespace Traveler.Controllers
                 travel.UserID = User.Identity.GetUserId();
                 travel.Cities = new HashSet<City>();
 
-                //if (formCollection["CityID"] != null)
-                //{
-                //    string[] ids = formCollection["CityID"].Split(',');
+                if (formCollection["CityID"] != null)
+                {
+                    string[] ids = formCollection["CityID"].Split(',');
+                    foreach (string id in ids)
+                    {
+                        City city = new City();
+                        city = db.Cities.Find(int.Parse(id));
+                        travel.Cities.Add(city);
+                    }
+                }
 
-                //    foreach (string id in ids)
-                //    {
-                //        City city = new City { CityID = int.Parse(id) };
-                //        travel.Cities.Add(city);
-                //    }
-                //}
-                
                 db.Travels.Add(travel);
+               
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

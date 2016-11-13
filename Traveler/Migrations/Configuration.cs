@@ -17,7 +17,7 @@ namespace Traveler.Migrations
             context.Countries.AddOrUpdate(
                 c => c.Name,
                 new Models.Country { CountryID = 1, Name = "Polska" },
-                new Models.Country { CountryID = 1, Name = "Anglia" }
+                new Models.Country { CountryID = 2, Name = "Anglia" }
                 );
 
             context.Cities.AddOrUpdate(

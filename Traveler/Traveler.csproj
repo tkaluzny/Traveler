@@ -176,34 +176,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611081846470_Initial.cs" />
-    <Compile Include="Migrations\201611081846470_Initial.Designer.cs">
-      <DependentUpon>201611081846470_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101007514_Travel.cs" />
-    <Compile Include="Migrations\201611101007514_Travel.Designer.cs">
-      <DependentUpon>201611101007514_Travel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101029586_Travel_Updated_User_Ref.cs" />
-    <Compile Include="Migrations\201611101029586_Travel_Updated_User_Ref.Designer.cs">
-      <DependentUpon>201611101029586_Travel_Updated_User_Ref.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101622404_places.cs" />
-    <Compile Include="Migrations\201611101622404_places.Designer.cs">
-      <DependentUpon>201611101622404_places.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101636121_city_in_travel.cs" />
-    <Compile Include="Migrations\201611101636121_city_in_travel.Designer.cs">
-      <DependentUpon>201611101636121_city_in_travel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101651562_city_in_travel_2.cs" />
-    <Compile Include="Migrations\201611101651562_city_in_travel_2.Designer.cs">
-      <DependentUpon>201611101651562_city_in_travel_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611101717002_city_in_travel1.cs" />
-    <Compile Include="Migrations\201611101717002_city_in_travel1.Designer.cs">
-      <DependentUpon>201611101717002_city_in_travel1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
@@ -282,29 +254,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611081846470_Initial.resx">
-      <DependentUpon>201611081846470_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101007514_Travel.resx">
-      <DependentUpon>201611101007514_Travel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101029586_Travel_Updated_User_Ref.resx">
-      <DependentUpon>201611101029586_Travel_Updated_User_Ref.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101622404_places.resx">
-      <DependentUpon>201611101622404_places.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101636121_city_in_travel.resx">
-      <DependentUpon>201611101636121_city_in_travel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101651562_city_in_travel_2.resx">
-      <DependentUpon>201611101651562_city_in_travel_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611101717002_city_in_travel1.resx">
-      <DependentUpon>201611101717002_city_in_travel1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
