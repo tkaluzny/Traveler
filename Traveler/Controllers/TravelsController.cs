@@ -94,10 +94,11 @@ namespace Traveler.Controllers
         // POST: Travels/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TravelID,Name,Description")] Travel travel)
+        public ActionResult Edit([Bind(Include = "TravelID,Name,Description,UserID")] Travel travel)
         {
             if (ModelState.IsValid)
             {
+                travel.UserID = User.Identity.GetUserId();
                 db.Entry(travel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

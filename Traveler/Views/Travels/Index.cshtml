@@ -6,34 +6,20 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Dodaj", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+<button class="btn btn-default" href='@Html.ActionLink("Nowa podróż", "Create")'>Nowa podróż</button>
+    
+<div class="short_selection">
+    <ul class="md_golist_list" style="clear:left;">
+                @{
+                    <li>
+                        @foreach (var item in Model)
+                        {
+                            <div>
+                                @Html.ActionLink(item.Name,"Details",new { id = item.TravelID })
+                            </div>
+                        }
+                    </li>
+                }
+    </ul>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edycja", "Edit", new { id=item.TravelID }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.TravelID }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.TravelID })
-        </td>
-    </tr>
-}
-
-</table>
+</div>

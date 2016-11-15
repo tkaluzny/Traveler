@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Przeszukiwarka podróży</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <hr />
+            <h4>Szukaj państwa</h4>
+            <div class="col-md-10">
+                Wyszukaj wszystkie podróże odbyte w danym kraju
+                <br />
+                <input id="Country_input name="Country" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <hr />
+            <h4>Szukaj miasta</h4>
+            <div class="col-md-10">
+                Wyszukaj wszystkie podróże w danym mieście
+                <br />
+              <input id="City_input name="City" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <hr />    
+            <h4>Szukaj nazwy podróży</h4>
+            <div class="col-md-10">
+                Wyszukaj podróż po nazwie określającej jej tematykę
+                <br />
+                <input id="TravelName_input name="TravelName" />
+            </div>
+       </div>
+        
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-primary" href =@Url.Action("Find/")>Szukaj</button>
+                </div>
+            </div>
+        </div>
+}
