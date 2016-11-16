@@ -1,47 +1,83 @@
-﻿
+﻿@model Traveler.Models.Search
 @{
     ViewBag.Title = "View";
 }
 
 <h2>Przeszukiwarka podróży</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Find","Search",FormMethod.Post))
 {
     <div class="form-horizontal">
         <div class="form-group">
             <hr />
-            <h4>Szukaj państwa</h4>
+            <h4>  <input type="radio" name="type" id="Country" value="Country" />  Szukaj państwa</h4>
+            
             <div class="col-md-10">
                 Wyszukaj wszystkie podróże odbyte w danym kraju
                 <br />
-                <input id="Country_input name="Country" />
+               
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control_1"  } })
+                
             </div>
         </div>
         
         <div class="form-group">
             <hr />
-            <h4>Szukaj miasta</h4>
+            <h4> <input type="radio" name="type" id="City" value="City" />   Szukaj miasta</h4>
+           
             <div class="col-md-10">
                 Wyszukaj wszystkie podróże w danym mieście
                 <br />
-              <input id="City_input name="City" />
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control_2" } })
+              
             </div>
         </div>
         
+
         <div class="form-group">
-            <hr />    
-            <h4>Szukaj nazwy podróży</h4>
+            <hr />
+            <h4><input type="radio" name="type" id="User" value="User" />   Szukaj użytkownika</h4>
+           
             <div class="col-md-10">
-                Wyszukaj podróż po nazwie określającej jej tematykę
+                Wyszukaj użytkownika naszego serwisu
                 <br />
-                <input id="TravelName_input name="TravelName" />
+               @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control_3" } })
             </div>
-       </div>
+        </div>
         
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-primary" href =@Url.Action("Find/")>Szukaj</button>
+                <input type="submit" class="btn btn-default" value="Szukaj"  />
+                <!-- <button type="submit"  class="btn btn-default" >Szukaj</button>-->
+
                 </div>
             </div>
         </div>
 }
+<script>
+$("form input:radio").change(function () {
+    if ($(this).val() == "Country") {
+
+        $('.form-control_1').removeAttr('disabled');
+        $('.form-control_2').attr('disabled', 'disabled');
+        $('.form-control_3').attr('disabled', 'disabled');
+    }
+    else if ($(this).val() == "City") {
+        // Re-enable here I guess
+        $('.form-control_2').removeAttr('disabled');
+        $('.form-control_1').attr('disabled', 'disabled');
+        $('.form-control_3').attr('disabled', 'disabled');
+    }
+    else
+    {
+        $('.form-control_3').removeAttr('disabled');
+        $('.form-control_2').attr('disabled', 'disabled');
+        $('.form-control_1').attr('disabled', 'disabled');
+    }
+});
+$("form input:radio").before(function () {
+    $('.form-control_3').attr('disabled', 'disabled');
+    $('.form-control_2').attr('disabled', 'disabled');
+    $('.form-control_1').attr('disabled', 'disabled');
+})
+</script>

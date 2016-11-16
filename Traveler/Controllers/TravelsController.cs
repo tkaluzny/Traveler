@@ -10,7 +10,7 @@ using Traveler.Models;
 
 namespace Traveler.Controllers
 {
-    [Authorize]
+ 
     public class TravelsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,9 +19,14 @@ namespace Traveler.Controllers
         // Display travels which are assigned to current user
         public ActionResult Index()
         {
-            string CurrentUserID = User.Identity.GetUserId();
+            if(TempData["travels"]!= null)
+            {
+                return View(TempData["travels"]);
+            }
+            string CurrentUserID = User.Identity.Name;
             return View(db.Travels.Where(t => t.UserID == CurrentUserID).ToList());
         }
+      
 
         // GET: Travels/Details/5
         public ActionResult Details(int? id)
@@ -31,13 +36,13 @@ namespace Traveler.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Travel travel = db.Travels.Find(id);
-            if (travel == null || !HasAccess(travel))
+            if (travel == null )
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
             }
             return View(travel);
         }
-
+       
         // GET: Travels/Create
         public ActionResult Create()
         {
@@ -53,7 +58,7 @@ namespace Traveler.Controllers
             if (ModelState.IsValid)
             {
                 // Assign current user id to travel.UserID property
-                travel.UserID = User.Identity.GetUserId();
+                travel.UserID = User.Identity.Name;
                 travel.Cities = new HashSet<City>();
 
                 if (formCollection["CityID"] != null)
@@ -98,7 +103,7 @@ namespace Traveler.Controllers
         {
             if (ModelState.IsValid)
             {
-                travel.UserID = User.Identity.GetUserId();
+                travel.UserID = User.Identity.Name;
                 db.Entry(travel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -144,7 +149,7 @@ namespace Traveler.Controllers
 
         private Boolean HasAccess(Travel travel)
         {
-            return travel.UserID == User.Identity.GetUserId();
+            return travel.UserID == User.Identity.Name;
         }
     }
 }

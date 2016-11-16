@@ -23,6 +23,6 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.TravelID }) |
-    @Html.ActionLink("Usuń", "Delete", new { id = Model.TravelID })
+  @if (User.Identity.Name == Model.UserID) {  @Html.ActionLink("Edytuj", "Edit", new { id = Model.TravelID })} 
+  @if (User.Identity.Name == Model.UserID) { @Html.ActionLink("Usuń", "Delete", new { id = Model.TravelID })}
 </p>

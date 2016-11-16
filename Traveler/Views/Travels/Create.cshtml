@@ -98,7 +98,7 @@
     }
 
     function onCountrySelect(countryID) {
-        $('#City').empty();
+       $('#City').empty();
 
         $.ajax('/Cities/ByCountry/' + countryID).done(function (data) {
             cities = data;
@@ -126,6 +126,7 @@
     }
 
     function appendPlace(city) {
+       
         var markup = ['<tr id="City_' + city.CityID + '">'];
         markup.push('<td>' + city.Country.Name + '</td>');
         markup.push('<td>' + city.Name + '</td>');

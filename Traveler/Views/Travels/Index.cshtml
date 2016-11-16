@@ -6,19 +6,21 @@
 
 <h2>@ViewBag.Title</h2>
 
-<button class="btn btn-default" href='@Html.ActionLink("Nowa podróż", "Create")'>Nowa podróż</button>
+@if (User.Identity.IsAuthenticated)
+{<input type="button" class="btn btn-default" value="Nowa podróż" onclick="location.href='@Url.Action("Create", "Travels")'" />}
     
 <div class="short_selection">
     <ul class="md_golist_list" style="clear:left;">
                 @{
-                    <li>
-                        @foreach (var item in Model)
+                    
+                        foreach (var item in Model)
                         {
                             <div>
-                                @Html.ActionLink(item.Name,"Details",new { id = item.TravelID })
+                                @Html.ActionLink(item.Name, "Details", new { id = item.TravelID })
+                             
                             </div>
                         }
-                    </li>
+                    
                 }
     </ul>
 
