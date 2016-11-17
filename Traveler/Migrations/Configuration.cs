@@ -1,19 +1,28 @@
 namespace Traveler.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Microsoft.AspNet.Identity;
+    using Models;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Traveler.Models.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Traveler.Models.ApplicationDbContext context)
         {
+            var passwordHash = new PasswordHasher();
+
+            context.Users.AddOrUpdate(u => u.UserName,
+                new ApplicationUser
+                {
+                    UserName = "admin@example.com",
+                    PasswordHash = passwordHash.HashPassword("Password@123"),
+                    SecurityStamp = "8733aaf3-c0b0-43d4-b0c4-11ab1d276627"
+                });
+
             context.Countries.AddOrUpdate(
                 c => c.Name,
                 new Models.Country { CountryID = 1, Name = "Polska" },

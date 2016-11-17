@@ -35,12 +35,12 @@ namespace Traveler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Travel travel = db.Travels.Find(id);
-            if (travel == null )
+            List<Travel> travels = db.Travels.Include(x => x.Cities.Select(y => y.Country)).Where(t => t.TravelID == id).ToList();
+            if (travels.Count == 0)
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
             }
-            return View(travel);
+            return View(travels.First());
         }
        
         // GET: Travels/Create

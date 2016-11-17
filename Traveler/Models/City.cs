@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace Traveler.Models
 {
@@ -14,6 +12,7 @@ namespace Traveler.Models
         public int CountryID { get; set; }
         public virtual Country Country { get; set; }
         
+        [ScriptIgnore]
         public virtual ICollection<Travel> Travels { get; set; }
     }
 }

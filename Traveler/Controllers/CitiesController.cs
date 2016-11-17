@@ -123,7 +123,7 @@ namespace Traveler.Controllers
         [HttpGet]
         public JsonResult ByCountry(int id)
         {
-            List<City> cities = db.Cities.Where(c => c.CountryID == id).ToList();
+            List<City> cities = db.Cities.Where(c => c.CountryID == id).Include(c => c.Country).ToList();
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
