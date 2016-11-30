@@ -4,15 +4,12 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Travels", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Travel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TravelID)
@@ -34,6 +31,12 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="file" multiple id="file" name="file" accept="image/*" />
+            <div class="selectedFiles"></div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -44,6 +47,43 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+
+    var selDiv = "";
+
+    document.addEventListener("DOMContentLoaded", init, false);
+
+    function init() {
+        document.querySelector('#file').addEventListener('change', handleFileSelect, false);
+        selDiv = document.querySelector(".selectedFiles");
+    }
+
+    function handleFileSelect(e) {
+
+        if (!e.target.files || !window.FileReader) return;
+
+        selDiv.innerHTML = "";
+
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+        filesArr.forEach(function (f) {
+
+            if (!f.type.match("image.*")) {
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var class_ = "SelectedImg";
+                var html = "<img src=\"" + e.target.result + "\" class=" + class_ + ">";
+                selDiv.innerHTML += html;
+            }
+            reader.readAsDataURL(f);
+        });
+
+    }
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

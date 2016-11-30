@@ -53,3 +53,28 @@ textarea {
     z-index: 0;
     margin-right: 5px;
 }
+.selectedFiles
+{
+        float: left;
+        margin-bottom:10px;
+}
+.SelectedImg{
+    width:120px;
+    height:150px;
+    padding:5px 5px 5px 5px;
+}
+.div_list{
+    padding: 9px 9px 9px 9px;
+    border:  1px solid #EEEEEE;
+}
+.img_div_list{
+    height:400px;
+    width: 320px; 
+}
+.span_div_list
+{
+    background-color: lightgray;
+    font-weight:700;
+    display:block;
+    padding-bottom: 5px;
+}

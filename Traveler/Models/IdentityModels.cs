@@ -35,5 +35,7 @@ namespace Traveler.Models
         public System.Data.Entity.DbSet<Traveler.Models.Country> Countries { get; set; }
 
         public System.Data.Entity.DbSet<Traveler.Models.City> Cities { get; set; }
+
+        public System.Data.Entity.DbSet<Traveler.Models.Image> Images { get; set; }
     }
 }

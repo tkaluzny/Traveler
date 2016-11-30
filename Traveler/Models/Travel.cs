@@ -17,5 +17,7 @@ namespace Traveler.Models
         public string UserID { get; set; }
         
         public virtual ICollection<City> Cities { get; set; }
+        [Display(Name = "Zdjęcia")]
+        public virtual ICollection<Image> Photos { get; set; }
     }
 }

@@ -4,15 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Dodaj podróż</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Travels", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Travel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,28 +31,33 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="places">Miejsca</label>
-            <div class="col-md-10">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addCityModal" style="margin-bottom: 15px;">
-                    Dodaj miejsce
-                </button>
-                <table class="table hidden" id="PlacesTable">
-                    <tr>
-                        <th>Państwo</th>
-                        <th>Miasto</th>
-                        <th></th>
-                    </tr>
-                </table>
-            </div>
+            @Html.LabelFor(model => model.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="file" multiple id="file" name="file"  accept="image/*" />
+            <div class="selectedFiles" ></div>
         </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="places">Miejsca</label>
+                <div class="col-md-10">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addCityModal" style="margin-bottom: 15px;">
+                        Dodaj miejsce
+                    </button>
+                    <table class="table hidden" id="PlacesTable">
+                        <tr>
+                            <th>Państwo</th>
+                            <th>Miasto</th>
+                            <th></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Zapisz" class="btn btn-primary" />
-                <a class="btn btn-default" href="@Url.Action("Index")">Anuluj</a>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zapisz" class="btn btn-primary" />
+                    <a class="btn btn-default" href="@Url.Action("Index")">Anuluj</a>
+                </div>
             </div>
         </div>
-    </div>
 }
 
 <!-- Modal -->
@@ -141,6 +145,41 @@
 
     function appendOptionToCitiesSelect(id, name) {
         $('#City').append('<option value="' + id + '">' + name + '</option>');
+    }
+
+
+    var selDiv = "";
+
+    document.addEventListener("DOMContentLoaded", init, false);
+
+    function init() {
+        document.querySelector('#file').addEventListener('change', handleFileSelect, false);
+        selDiv = document.querySelector(".selectedFiles");
+    }
+
+    function handleFileSelect(e) {
+
+        if (!e.target.files || !window.FileReader) return;
+
+        selDiv.innerHTML = "";
+
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+        filesArr.forEach(function (f) {
+
+            if (!f.type.match("image.*")) {
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var class_ = "SelectedImg";
+                var html = "<img src=\"" + e.target.result + "\" class=" + class_ + ">";
+                selDiv.innerHTML += html;
+            }
+            reader.readAsDataURL(f);
+        });
+
     }
 </script>
 

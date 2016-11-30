@@ -8,20 +8,38 @@
 
 @if (User.Identity.IsAuthenticated)
 {<input type="button" class="btn btn-default" value="Nowa podróż" onclick="location.href='@Url.Action("Create", "Travels")'" />}
-    
-<div class="short_selection">
-    <ul class="md_golist_list" style="clear:left;">
-                @{
+  <table>
+    <div class="short_selection">
+        
+            @{
+                var i = 0;
+                foreach (var item in Model)
+                {
                     
-                        foreach (var item in Model)
-                        {
-                            <div>
-                                @Html.ActionLink(item.Name, "Details", new { id = item.TravelID })
-                             
-                            </div>
-                        }
-                    
-                }
-    </ul>
+                        @(i%3 == 0 ? Html.Raw("<tr>") : Html.Raw(""))
+                        <td>
+                            <div class="div_list">
+                                <a href="@Url.Action("Details","Travels", new { id = item.TravelID }) ">
+                                    <span class="span_div_list">
+                                        @item.Name
+                                        <br />
+                                        @foreach(var item2 in item.Cities)
+                                        {
+                                            @(item2.Name + " " )
 
-</div>
+                                        }
+                                    </span>
+                                    <img src="~/img/@(item.Photos.First().Name).jpg" class="img_div_list" />
+                                </a>
+                            </div>
+                        </td>
+                        @(i % 3 == 2 ? Html.Raw("</tr>") : Html.Raw(""))
+                    
+                    i++;
+                }
+
+            }
+       
+
+    </div>
+</table> 
