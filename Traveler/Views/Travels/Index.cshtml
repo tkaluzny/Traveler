@@ -17,22 +17,25 @@
                 {
                     
                         @(i%3 == 0 ? Html.Raw("<tr>") : Html.Raw(""))
-                        <td>
-                            <div class="div_list">
-                                <a href="@Url.Action("Details","Travels", new { id = item.TravelID }) ">
-                                    <span class="span_div_list">
-                                        @item.Name
-                                        <br />
-                                        @foreach(var item2 in item.Cities)
-                                        {
-                                            @(item2.Name + " " )
+                    <td>
+                        <div class="div_list">
+                            <a href="@Url.Action("Details","Travels", new { id = item.TravelID }) ">
+                                <span class="span_div_list">
+                                    @item.Name
+                                    <br />
+                                    @foreach (var item2 in item.Cities)
+                                    {
+                                        @(item2.Name + " " )
 
-                                        }
-                                    </span>
-                                    <img src="~/img/@(item.Photos.First().Name).jpg" class="img_div_list" />
-                                </a>
-                            </div>
-                        </td>
+                                    }
+                                </span>
+                                @if (item.Photos.Count > 0)
+                                {
+                                <img src="~/uploads/@(item.Photos.First().Name).jpg" class="img_div_list" />
+                                }
+                            </a>
+                        </div>
+                    </td>
                         @(i % 3 == 2 ? Html.Raw("</tr>") : Html.Raw(""))
                     
                     i++;

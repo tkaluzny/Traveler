@@ -42,8 +42,8 @@
         @foreach (var item in Model.Photos)
         {
             <li>
-                <a href="~/img/@(item.Name).jpg">
-                    <img src="~/img/@(item.Name).jpg" />
+                <a href="~/uploads/@(item.Name).jpg">
+                    <img src="~/uploads/@(item.Name).jpg" />
                 </a>
             </li>
         }

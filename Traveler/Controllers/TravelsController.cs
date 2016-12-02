@@ -173,7 +173,13 @@ namespace Traveler.Controllers
                 { 
                     Image img = new Image();
                     img.Name = travel.Name + "_" + travel.Photos.Count;
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"img", img.Name+".jpg");
+
+                    string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
+                    if (!Directory.Exists(dirPath))
+                    {
+                        Directory.CreateDirectory(dirPath);
+                    }
+                    string path = Path.Combine(dirPath, img.Name+".jpg");
                     FileStream  writeStream = new FileStream(path, FileMode.Create);
                     BinaryWriter bw = new BinaryWriter(writeStream);
                     byte[] buff = new byte[item.ContentLength];
