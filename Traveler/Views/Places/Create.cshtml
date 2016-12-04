@@ -1,0 +1,151 @@
+﻿@model Traveler.Models.Place
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Place</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="CountryID" class="control-label col-md-2">Państwo</label>
+            <div class="col-md-10">
+                @Html.DropDownList("CountryID", null, htmlAttributes: new { @class = "form-control", @onchange = "onCountrySelect(this.value)" })
+            </div>
+        </div>
+
+        <div id="citiesFormGroup" class="form-group">
+            <label for="City" class="control-label col-md-2">Miasto</label>
+            <div class="col-md-10">
+                <select id="City" name="City" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="file" multiple id="file" name="file" accept="image/*" />
+            <div class="selectedFiles"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a class="btn btn-default" href="@Url.Action("Index")">Anuluj</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    var countryId = $("#Country").val();
+    var cities = [];
+
+    if (countryId) {
+        onCountrySelect(countryId);
+    }
+
+    function onCountrySelect(countryID) {
+       $('#City').empty();
+
+        $.ajax('/Cities/ByCountry/' + countryID).done(function (data) {
+            cities = data;
+            for (var i = 0; i < data.length; i++) {
+                appendOptionToCitiesSelect(data[i].CityID, data[i].Name);
+            }
+        });
+    }
+
+    function addPlace() {
+        var CityID = Number($('#City').val());
+        if (!$("#City_" + CityID).length) {
+            $('#PlacesTable').removeClass('hidden');
+            for (var i = 0; i < cities.length; i++) {
+                if (cities[i].CityID == CityID) {
+                    appendPlace(cities[i]);
+                }
+            }
+        }
+    }
+
+    function removePlace(id) {
+        $('#City_' + id).remove();
+        $('#City_Input_' + id).remove();
+    }
+
+    function appendPlace(city) {
+
+        var markup = ['<tr id="City_' + city.CityID + '">'];
+        markup.push('<td>' + city.Country.Name + '</td>');
+        markup.push('<td>' + city.Name + '</td>');
+        markup.push('<td><a class="link" href="#" onclick="removePlace(' + city.CityID + ')">Usuń</a></td>');
+        markup.push('</tr>');
+        $('#PlacesTable').append(markup.join(''));
+
+        var hiddenInput = '<input id="City_Input_' + city.CityID + '" type="hidden" name="CityID" value="' + city.CityID + '">';
+
+        $('#PlacesTable').after(hiddenInput);
+    }
+
+    function appendOptionToCitiesSelect(id, name) {
+        $('#City').append('<option value="' + id + '">' + name + '</option>');
+    }
+
+
+    var selDiv = "";
+
+    document.addEventListener("DOMContentLoaded", init, false);
+
+    function init() {
+        document.querySelector('#file').addEventListener('change', handleFileSelect, false);
+        selDiv = document.querySelector(".selectedFiles");
+    }
+
+    function handleFileSelect(e) {
+
+        if (!e.target.files || !window.FileReader) return;
+
+        selDiv.innerHTML = "";
+
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+        filesArr.forEach(function (f) {
+
+            if (!f.type.match("image.*")) {
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var class_ = "SelectedImg";
+                var html = "<img src=\"" + e.target.result + "\" class=" + class_ + ">";
+                selDiv.innerHTML += html;
+            }
+            reader.readAsDataURL(f);
+        });
+
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

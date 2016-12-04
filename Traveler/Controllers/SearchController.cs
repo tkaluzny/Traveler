@@ -25,19 +25,19 @@ namespace Traveler.Controllers
             Country _country = new Country();
             City _city = new City();
             List<Travel> li = new List<Travel>();
-            if (search.Country!= null)
-            {
-                li = db.Travels.Where(e => e.Cities.FirstOrDefault().Country.Name == search.Country).ToList();
-            }
-            else if (search.City != null)
-            {
-                li = db.Travels.Where(e => e.Cities.FirstOrDefault().Name == search.City).ToList();
-            }
-            else if(search.UserName != null)
-            {
-                string user = db.Users.FirstOrDefault(e => e.UserName == search.UserName).Id;
-                li = db.Travels.Where(e => e.UserID == user).ToList();
-            }
+            //if (search.Country!= null)
+            //{
+            //    li = db.Travels.Where(e => e.Cities.FirstOrDefault().Country.Name == search.Country).ToList();
+            //}
+            //else if (search.City != null)
+            //{
+            //    li = db.Travels.Where(e => e.Cities.FirstOrDefault().Name == search.City).ToList();
+            //}
+            //else if(search.UserName != null)
+            //{
+            //    string user = db.Users.FirstOrDefault(e => e.UserName == search.UserName).Id;
+            //    li = db.Travels.Where(e => e.UserID == user).ToList();
+            //}
             TempData["travels"] = li;
             return RedirectToAction("Index", "Travels");
         }

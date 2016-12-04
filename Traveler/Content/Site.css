@@ -23,6 +23,11 @@ textarea {
     max-width: 280px;
 }
 
+pre {
+    border: 0; 
+    background-color: transparent;
+}
+
 .hidden {
     display: none;
 }

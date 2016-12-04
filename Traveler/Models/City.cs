@@ -11,8 +11,5 @@ namespace Traveler.Models
 
         public int CountryID { get; set; }
         public virtual Country Country { get; set; }
-        
-        [ScriptIgnore]
-        public virtual ICollection<Travel> Travels { get; set; }
     }
 }

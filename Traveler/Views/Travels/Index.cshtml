@@ -6,43 +6,30 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if (User.Identity.IsAuthenticated)
-{<input type="button" class="btn btn-default" value="Nowa podróż" onclick="location.href='@Url.Action("Create", "Travels")'" />}
-  <table>
-    <div class="short_selection">
-        
-            @{
-                var i = 0;
-                foreach (var item in Model)
-                {
-                    
-                        @(i%3 == 0 ? Html.Raw("<tr>") : Html.Raw(""))
-                    <td>
-                        <div class="div_list">
-                            <a href="@Url.Action("Details","Travels", new { id = item.TravelID }) ">
-                                <span class="span_div_list">
-                                    @item.Name
-                                    <br />
-                                    @foreach (var item2 in item.Cities)
-                                    {
-                                        @(item2.Name + " " )
+<p>
+    @Html.ActionLink("Nowa podróż", "Create", null, new { @class = "btn btn-default" })
+</p>
 
-                                    }
-                                </span>
-                                @if (item.Photos.Count > 0)
-                                {
-                                <img src="~/uploads/@(item.Photos.First().Name).jpg" class="img_div_list" />
-                                }
-                            </a>
-                        </div>
-                    </td>
-                        @(i % 3 == 2 ? Html.Raw("</tr>") : Html.Raw(""))
-                    
-                    i++;
-                }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
 
-            }
-       
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edycja", "Edit", new { id = item.TravelID }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.TravelID }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.TravelID })
+            </td>
+        </tr>
+    }
 
-    </div>
-</table> 
+</table>

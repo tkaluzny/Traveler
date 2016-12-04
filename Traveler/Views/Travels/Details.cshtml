@@ -1,55 +1,21 @@
 ﻿@model Traveler.Models.Travel
 
 @{
-    ViewBag.Title = "Moje podróże";
+    ViewBag.Title = "Moje podróże - " + Model.Name;
 }
-<script>
 
-    (function (window, PhotoSwipe) {
-
-        document.addEventListener('DOMContentLoaded', function () {
-
-            var
-                options = {},
-                instance = PhotoSwipe.attach(window.document.querySelectorAll('#Gallery a'), options);
-
-        }, false);
-
-
-    }(window, window.Code.PhotoSwipe));
-
-
-</script>
-<div class="container body-content">
-    <div class="md_GolistHeader" id="md_golist_header">
-        <h2>@Html.DisplayFor(model => model.Name)</h2>
-        <strong>
-            Opisywane miejsca:
-            @{
-                foreach (var item in Model.Cities)
-                {
-                    <li>
-                        @item.Name - @item.Country.Name
-                    </li>
-                }
-            }
-        </strong>
-    </div>
-    <div class="md_GolistPoint" id="md_golist_pointer">
-        <p> @Html.DisplayFor(model => model.Description)</p>
-    </div>
-    <ul id="Gallery" class="gallery" >
-        @foreach (var item in Model.Photos)
-        {
-            <li>
-                <a href="~/uploads/@(item.Name).jpg">
-                    <img src="~/uploads/@(item.Name).jpg" />
-                </a>
-            </li>
-        }
-    </ul>
-</div>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<hr />
 <p>
-  @if (User.Identity.Name == Model.UserID) {  @Html.ActionLink("Edytuj", "Edit", new { id = Model.TravelID })} 
-  @if (User.Identity.Name == Model.UserID) { @Html.ActionLink("Usuń", "Delete", new { id = Model.TravelID })}
+    @Html.DisplayFor(model => model.Description)
 </p>
+
+<div class="alert alert-warning">
+    Ta podróż jeszcze nie ma żadnych miejsc, proszę dodaj je przyciskiem "Dodaj miejsce"
+</div>
+
+<div>
+    @Html.ActionLink("Dodaj miejsce", "Create", "Place", new { id = Model.TravelID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.TravelID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Usuń", "Delete", new { id = Model.TravelID }, new { @class = "btn btn-default" })
+</div>

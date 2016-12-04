@@ -13,7 +13,8 @@ using Traveler.Models;
 
 namespace Traveler.Controllers
 {
- 
+
+    [Authorize]
     public class TravelsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -27,7 +28,7 @@ namespace Traveler.Controllers
                 return View(TempData["travels"]);
             }
             string CurrentUserID = User.Identity.Name;
-            List<Travel> travel = db.Travels.Include(e => e.Photos).Include(e => e.Cities).Where(t => t.UserID == CurrentUserID).ToList();
+            List<Travel> travel = db.Travels.Include(e => e.Places).Where(t => t.UserID == CurrentUserID).ToList();
             return View(travel);
         }
       
@@ -39,7 +40,7 @@ namespace Traveler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<Travel> travels = db.Travels.Include(x => x.Cities.Select(y => y.Country)).Include(x => x.Photos).Where(t => t.TravelID == id).ToList();
+            List<Travel> travels = db.Travels.Include(x => x.Places).Where(t => t.TravelID == id).ToList();
             if (travels.Count == 0)
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
@@ -50,7 +51,6 @@ namespace Traveler.Controllers
         // GET: Travels/Create
         public ActionResult Create()
         {
-            ViewData["Country"] = new SelectList(db.Countries.ToList(), "CountryID", "Name");
             return View();
         }
 
@@ -63,27 +63,11 @@ namespace Traveler.Controllers
             {
                 // Assign current user id to travel.UserID property
                 travel.UserID = User.Identity.Name;
-                travel.Cities = new HashSet<City>();
-                travel.Photos = new HashSet<Image>();
-
-                if (formCollection["CityID"] != null)
-                {
-                    string[] ids = formCollection["CityID"].Split(',');
-                    foreach (string id in ids)
-                    {
-                        City city = new City();
-                        city = db.Cities.Find(int.Parse(id));
-                        travel.Cities.Add(city);
-                    }
-
-                    
-
-                }
-                Update(travel, file);
+                
                 db.Travels.Add(travel);
-               
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Details", new { id = travel.TravelID });
             }
 
             return View(travel);
@@ -109,14 +93,11 @@ namespace Traveler.Controllers
         // POST: Travels/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TravelID,Name,Description,UserID,Photos")] Travel travel, HttpPostedFileBase[] file)
+        public ActionResult Edit([Bind(Include = "TravelID,Name,Description,UserID")] Travel travel, HttpPostedFileBase[] file)
         {
             if (ModelState.IsValid)
             {
                 travel.UserID = User.Identity.Name;
-                travel.Cities = db.Cities.Where(e => e.Travels.FirstOrDefault().TravelID == travel.TravelID).ToList();
-                travel.Photos = db.Images.Where(e => e.travel.TravelID == travel.TravelID).ToList();
-                Update(travel, file);
                 db.Entry(travel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -165,32 +146,32 @@ namespace Traveler.Controllers
             return travel.UserID == User.Identity.Name;
         }
 
-        private void Update(Travel travel, HttpPostedFileBase[] file)
-        {
-            if(file != null)
-            {
-                foreach(var item in file)
-                { 
-                    Image img = new Image();
-                    img.Name = travel.Name + "_" + travel.Photos.Count;
+        //private void Update(Travel travel, HttpPostedFileBase[] file)
+        //{
+        //    if(file != null)
+        //    {
+        //        foreach(var item in file)
+        //        { 
+        //            Photo img = new Photo();
+        //            img.Name = travel.Name + "_" + travel.Photos.Count;
 
-                    string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
-                    if (!Directory.Exists(dirPath))
-                    {
-                        Directory.CreateDirectory(dirPath);
-                    }
-                    string path = Path.Combine(dirPath, img.Name+".jpg");
-                    FileStream  writeStream = new FileStream(path, FileMode.Create);
-                    BinaryWriter bw = new BinaryWriter(writeStream);
-                    byte[] buff = new byte[item.ContentLength];
-                    item.InputStream.Read(buff,0, item.ContentLength);
-                    bw.Write(buff);
-                    bw.Close();
-                    travel.Photos.Add(img);
-                    db.Entry(img).State = EntityState.Added;
-                }
+        //            string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
+        //            if (!Directory.Exists(dirPath))
+        //            {
+        //                Directory.CreateDirectory(dirPath);
+        //            }
+        //            string path = Path.Combine(dirPath, img.Name+".jpg");
+        //            FileStream  writeStream = new FileStream(path, FileMode.Create);
+        //            BinaryWriter bw = new BinaryWriter(writeStream);
+        //            byte[] buff = new byte[item.ContentLength];
+        //            item.InputStream.Read(buff,0, item.ContentLength);
+        //            bw.Write(buff);
+        //            bw.Close();
+        //            travel.Photos.Add(img);
+        //            db.Entry(img).State = EntityState.Added;
+        //        }
                 
-            }
-        }
+        //    }
+        //}
     }
 }

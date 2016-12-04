@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Traveler.Models
 {
-    public class Image
+    public class Photo
     {
-        public int ID { get; set; }
+        public int PhotoID { get; set; }
         public string Name { get; set; }
-        public virtual Travel travel { get; set; }
+        public virtual Place place { get; set; }
     }
 }
