@@ -14,14 +14,7 @@ namespace Traveler.Controllers
     public class PlacesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: Places
-        public ActionResult Index()
-        {
-            var places = db.Places.Include(v => v.City).Include(v => v.Travel);
-            return View(places.ToList());
-        }
-
+        
         // GET: Places/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,11 +30,11 @@ namespace Traveler.Controllers
             return View(place);
         }
 
-        public ActionResult Create(int id)
+        public ActionResult Create(int travelID)
         {
-            Travel travel = db.Travels.Find(id);
+            Travel travel = db.Travels.Find(travelID);
             
-            ViewData["CountryID"] = new SelectList(db.Countries.ToList(), "CountryID", "Name");
+            ViewData["Country"] = new SelectList(db.Countries.ToList(), "CountryID", "Name");
 
             ViewBag.TravelID = travel.TravelID;
             ViewBag.TravelName = travel.Name;
@@ -54,18 +47,15 @@ namespace Traveler.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int travelID, [Bind(Include = "PlaceID,CityID,TravelID,Description")] Place place)
+        public ActionResult Create([Bind(Include = "PlaceID,CityID,TravelID,Name,Description")] Place place)
         {
             if (ModelState.IsValid)
             {
                 db.Places.Add(place);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Travels", new { id = place.TravelID });
             }
-
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "Name", place.CityID);
-            ViewBag.TravelID = new SelectList(db.Travels, "TravelID", "Name", place.TravelID);
-            return View(place);
+            return Create(place.TravelID);
         }
 
         // GET: Places/Edit/5
@@ -80,8 +70,6 @@ namespace Traveler.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "Name", place.CityID);
-            ViewBag.TravelID = new SelectList(db.Travels, "TravelID", "Name", place.TravelID);
             return View(place);
         }
 
@@ -90,16 +78,14 @@ namespace Traveler.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PlaceID,CityID,TravelID,Description")] Place place)
+        public ActionResult Edit([Bind(Include = "PlaceID,CityID,TravelID,Name,Description")] Place place)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(place).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = place.PlaceID });
             }
-            ViewBag.CityID = new SelectList(db.Cities, "CityID", "Name", place.CityID);
-            ViewBag.TravelID = new SelectList(db.Travels, "TravelID", "Name", place.TravelID);
             return View(place);
         }
 
@@ -126,7 +112,7 @@ namespace Traveler.Controllers
             Place place = db.Places.Find(id);
             db.Places.Remove(place);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Travels", new { id = place.TravelID });
         }
 
         protected override void Dispose(bool disposing)

@@ -32,6 +32,23 @@ pre {
     display: none;
 }
 
+.no-photo-thumbnail {
+    background-color: #EEEEEE;
+    height: 200px;
+    padding-top: 40px;
+}
+.no-photo-thumbnail img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    opacity: 0.5
+}
+
+.toolbar {
+    padding-top: 20px;
+    text-align: right;
+}
+
 .md_GolistLeft, .md_GolistHeader {
     width: 965px;
     padding: 5px 0px;

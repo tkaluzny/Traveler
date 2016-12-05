@@ -26,7 +26,8 @@ namespace Traveler.Migrations
             context.Countries.AddOrUpdate(
                 c => c.Name,
                 new Models.Country { CountryID = 1, Name = "Polska" },
-                new Models.Country { CountryID = 2, Name = "Anglia" }
+                new Models.Country { CountryID = 2, Name = "Anglia" },
+                new Models.Country { CountryID = 3, Name = "Hiszpania" }
                 );
 
             context.Cities.AddOrUpdate(
@@ -36,7 +37,10 @@ namespace Traveler.Migrations
                 new Models.City { CityID = 3, CountryID = 1, Name = "Lublin" },
                 new Models.City { CityID = 4, CountryID = 1, Name = "Opole" },
                 new Models.City { CityID = 5, CountryID = 2, Name = "Manchester" },
-                new Models.City { CityID = 6, CountryID = 2, Name = "Londyn" }
+                new Models.City { CityID = 6, CountryID = 2, Name = "Londyn" },
+                new Models.City { CityID = 7, CountryID = 3, Name = "Barcelona" },
+                new Models.City { CityID = 8, CountryID = 3, Name = "Madryt" },
+                new Models.City { CityID = 9, CountryID = 3, Name = "Valencia" }
                 );
         }
     }
