@@ -8,7 +8,7 @@
 <div class="row">
     <h2 class="col-sm-7">@Html.DisplayFor(model => model.Name)</h2>
     <div class="col-sm-5 toolbar">
-        @Html.ActionLink("Dodaj zdjęcie", "Create", "Photos", new { travelID = Model.PlaceID }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Dodaj zdjęcie", "Create", "Photos", new { placeID = Model.PlaceID }, new { @class = "btn btn-primary" })
         @Html.ActionLink("Edytuj", "Edit", new { id = Model.PlaceID }, new { @class = "btn btn-default" })
         @Html.ActionLink("Usuń", "Delete", new { id = Model.PlaceID }, new { @class = "btn btn-default" })
     </div>
@@ -37,6 +37,36 @@
     </dd>
 
 </dl>
+
+@if (Model.Photos.Count == 0)
+{
+    <div class="alert alert-warning">
+        Ta podróż jeszcze nie ma żadnych zdjęć, proszę dodaj je przyciskiem "Dodaj zdjęcie"
+    </div>
+}
+else
+{
+    <h3>Zdjęcia</h3>
+    <hr />
+    <div class="row">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="~/uploads/@photo.FileName">
+                    <div class="caption">
+                        <h5>@photo.Description</h5>
+                        <p>
+                            @Html.ActionLink("Edytuj opis", "Edit", "Photos", new { id = photo.PhotoID }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Usuń", "Delete", "Photos", new { id = photo.PhotoID }, new { @class = "btn btn-default" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
 <p>
     <a href="@Url.Action("Details", "Travels", new { id = Model.Travel.TravelID })">Powrót</a>
 </p>

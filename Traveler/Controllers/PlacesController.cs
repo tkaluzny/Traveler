@@ -30,6 +30,7 @@ namespace Traveler.Controllers
             return View(place);
         }
 
+        // POST: Places/Create?travelID=1
         public ActionResult Create(int travelID)
         {
             Travel travel = db.Travels.Find(travelID);
@@ -43,8 +44,6 @@ namespace Traveler.Controllers
         }
 
         // POST: Places/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PlaceID,CityID,TravelID,Name,Description")] Place place)
