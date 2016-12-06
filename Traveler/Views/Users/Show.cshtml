@@ -1,0 +1,57 @@
+﻿@model Traveler.Models.UserViewModel
+@{
+    ViewBag.Title = Model.UserName;
+}
+
+<h2>@Model.UserName</h2>
+<hr />
+
+<h3>Podróże</h3>
+<hr />
+@if (Model.Travels.Count > 0)
+{
+
+    var travelsCount = Model.Travels.Count > 3 ? 3 : Model.Travels.Count;
+    var travelsColumnNumber = 12 / travelsCount;
+
+
+    <div class="row">
+        @foreach (var travel in Model.Travels)
+        {
+            var photoFileName = "";
+            foreach (var place in travel.Places)
+            {
+                if (place.Photos.Count > 0)
+                {
+                    photoFileName = place.Photos.First().FileName;
+                    break;
+                }
+            }
+
+            <div class="col-sm-@travelsColumnNumber">
+                <a href="@Url.Action("Show", "Travels", new { id = travel.TravelID })">
+                    <div class="thumbnail">
+                        @if (photoFileName.IsEmpty())
+                        {
+                            <div class="no-photo-thumbnail">
+                                <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                            </div>
+                        }
+                        else
+                        {
+                            <img src="~/uploads/@photoFileName">
+                        }
+                        <div class="caption">
+                            <h3>@travel.Name</h3>
+                            <h5>@travel.Description</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">Ten użytkownik nie dodał żadnych podróży :(</div>
+}

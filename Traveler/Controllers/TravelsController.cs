@@ -47,6 +47,18 @@ namespace Traveler.Controllers
             }
             return View(travels.First());
         }
+
+        // GET: Travels/Show/5
+        [AllowAnonymous]
+        public ActionResult Show(int id)
+        {
+            Travel travel = db.Travels.Find(id);
+            if (travel == null)
+            {
+                return View("~/Views/Shared/AccessDeniedError.cshtml");
+            }
+            return View(travel);
+        }
        
         // GET: Travels/Create
         public ActionResult Create()
