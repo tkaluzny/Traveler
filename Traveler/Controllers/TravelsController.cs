@@ -61,7 +61,6 @@ namespace Traveler.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Assign current user id to travel.UserID property
                 travel.UserID = User.Identity.Name;
                 
                 db.Travels.Add(travel);
@@ -145,33 +144,5 @@ namespace Traveler.Controllers
         {
             return travel.UserID == User.Identity.Name;
         }
-
-        //private void Update(Travel travel, HttpPostedFileBase[] file)
-        //{
-        //    if(file != null)
-        //    {
-        //        foreach(var item in file)
-        //        { 
-        //            Photo img = new Photo();
-        //            img.Name = travel.Name + "_" + travel.Photos.Count;
-
-        //            string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
-        //            if (!Directory.Exists(dirPath))
-        //            {
-        //                Directory.CreateDirectory(dirPath);
-        //            }
-        //            string path = Path.Combine(dirPath, img.Name+".jpg");
-        //            FileStream  writeStream = new FileStream(path, FileMode.Create);
-        //            BinaryWriter bw = new BinaryWriter(writeStream);
-        //            byte[] buff = new byte[item.ContentLength];
-        //            item.InputStream.Read(buff,0, item.ContentLength);
-        //            bw.Write(buff);
-        //            bw.Close();
-        //            travel.Photos.Add(img);
-        //            db.Entry(img).State = EntityState.Added;
-        //        }
-                
-        //    }
-        //}
     }
 }

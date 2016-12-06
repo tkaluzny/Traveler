@@ -18,7 +18,6 @@ namespace Traveler.Controllers
         }
    
         [HttpPost]
-     
         public ActionResult Find([Bind(Include = "Country,City,UserName")]Search search)
         {
             

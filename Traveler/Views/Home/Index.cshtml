@@ -1,8 +1,9 @@
 ﻿@{
+    
     ViewBag.Title = "Home Page";
     ViewBag.RenderOutsideContainer = true;
 }
-
+@using Traveler.Models;
 <div class="jumbotron">
     <div class="container">
         <h1>Witaj w Traveler!</h1>
@@ -25,4 +26,28 @@
             <p>Wyjeżdżającym Traveler daje dostęp do najlepszych informacji - nikt nie opisze miejsca tak wiarygodnie jak inni turyści; relacje innych dają Ci pewność, że nie czytasz tendencyjnej reklamy, ale fakty</p>
         </div>
     </div>
+    <div class="row">
+        
+            
+                <h3>Najnowsze podróże</h3>
+                @{
+                    List<Travel> travels = ViewBag.travels;
+                    foreach (var item in travels)
+                    {
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <a href="@Url.Action("Details","Travels",new { id = item.TravelID})">
+                                    <img src="~/uploads/@(item.Places.First().Photos.First().FileName)" />
+                                    <div class="caption">
+                                        <h5>@item.Name</h5>
+                                    </div>
+                                </a>
+                            </div>
+                         </div>
+                    }
+                }
+
+        
+    </div>
 </div>
+
