@@ -10,13 +10,27 @@ using Traveler.Models;
 
 namespace Traveler.Controllers
 {
-    [Authorize]
+    
     public class PlacesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         
         // GET: Places/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Place place = db.Places.Find(id);
+            if (place == null)
+            {
+                return HttpNotFound();
+            }
+            return View(place);
+        }
+
+        public ActionResult Show(int? id)
         {
             if (id == null)
             {

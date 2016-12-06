@@ -36,7 +36,7 @@
                     {
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <a href="@Url.Action("Details","Travels",new { id = item.TravelID})">
+                                <a href="@Url.Action("Show","Travels",new { id = item.TravelID})">
                                     <img src="~/uploads/@(item.Places.First().Photos.First().FileName)" />
                                     <div class="caption">
                                         <h5>@item.Name</h5>

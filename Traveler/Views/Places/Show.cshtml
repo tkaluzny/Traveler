@@ -1,0 +1,63 @@
+﻿@model Traveler.Models.Place
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <h2 class="col-sm-7">@Html.DisplayFor(model => model.Name)</h2>
+</div>
+<hr />
+<dl class="dl-horizontal">
+
+    <dt>Podróż</dt>
+    <dd>
+        <a href="@Url.Action("Show", "Travels", new { id = Model.Travel.TravelID })">@Model.Travel.Name</a>
+    </dd>
+
+    <dt>Państwo</dt>
+    <dd>
+        @Html.DisplayFor(model => model.City.Country.Name)
+    </dd>
+
+    <dt>Miasto</dt>
+    <dd>
+        @Html.DisplayFor(model => model.City.Name)
+    </dd>
+
+    <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+
+</dl>
+
+@if (Model.Photos.Count == 0)
+{
+    <div class="alert alert-warning">
+        Ta podróż jeszcze nie ma żadnych zdjęć, proszę dodaj je przyciskiem "Dodaj zdjęcie"
+    </div>
+}
+else
+{
+    <h3>Zdjęcia</h3>
+    <hr />
+    <div class="row">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="~/uploads/@photo.FileName">
+                    <div class="caption">
+                        <h5>@photo.Description</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<p>
+    <a href="@Url.Action("Show", "Travels", new { id = Model.Travel.TravelID })">Powrót</a>
+</p>
