@@ -14,15 +14,8 @@ namespace Traveler.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            int count = db.Travels.Count();
-            List<Travel> travels = new List<Travel>();
-            for (int i=0;i<6;i++)
-            {
-                travels.Add(db.Travels.Include(x => x.Places).AsEnumerable().ElementAt(count - 1 - i));
-                if (count - 1 - i == 0) break;
-            }
-            ViewBag.travels = travels;
-            return View();
+            List<Travel> travels = db.Travels.OrderByDescending(t => t.TravelID).Take(6).ToList();
+            return View(new HomeViewModel { Travels =  travels });
         }
 
         public ActionResult About()

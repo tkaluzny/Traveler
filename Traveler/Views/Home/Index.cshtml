@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Traveler.Models.HomeViewModel
+@{
 
     ViewBag.Title = "Home Page";
     ViewBag.RenderOutsideContainer = true;
@@ -26,13 +27,14 @@
             <p>Wyjeżdżającym Traveler daje dostęp do najlepszych informacji - nikt nie opisze miejsca tak wiarygodnie jak inni turyści; relacje innych dają Ci pewność, że nie czytasz tendencyjnej reklamy, ale fakty</p>
         </div>
     </div>
-    <div class="row">
 
-
+    @if (Model.Travels.Count > 0)
+    {
         <h3>Najnowsze podróże</h3>
+    }
+    <div class="row">
         @{
-            List<Travel> travels = ViewBag.travels;
-            foreach (var item in travels)
+            foreach (var item in Model.Travels)
             {
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
@@ -55,7 +57,5 @@
                 </div>
             }
         }
-
-
     </div>
 </div>
