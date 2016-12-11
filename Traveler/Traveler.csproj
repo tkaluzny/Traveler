@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -183,12 +184,14 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\ShowTravelViewModel.cs" />
     <Compile Include="Models\Travel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,7 +259,6 @@
     <Content Include="Views\Places\Delete.cshtml" />
     <Content Include="Views\Places\Details.cshtml" />
     <Content Include="Views\Places\Edit.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Photos\Create.cshtml" />
     <Content Include="Views\Photos\Delete.cshtml" />
     <Content Include="Views\Photos\Details.cshtml" />
@@ -265,6 +267,7 @@
     <Content Include="Views\Users\Show.cshtml" />
     <Content Include="Views\Travels\Show.cshtml" />
     <Content Include="Views\Places\Show.cshtml" />
+    <Content Include="Views\Shared\_Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

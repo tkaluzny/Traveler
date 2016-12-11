@@ -1,26 +1,26 @@
-﻿@model Traveler.Models.Travel
+﻿@model Traveler.Models.ShowTravelViewModel
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.travel.Name;
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.travel.Name</h2>
 <hr />
 
 <p>
-    @Model.Description
+    @Model.travel.Description
 </p>
 
 <h3>Miejsca</h3>
 <hr />
-@if (Model.Places.Count > 0)
+@if (Model.travel.Places.Count > 0)
 {
 
-    var placesCount = Model.Places.Count > 3 ? 3 : Model.Places.Count;
+    var placesCount = Model.travel.Places.Count > 3 ? 3 : Model.travel.Places.Count;
     var placesColumnNumber = 12 / placesCount;
 
 
     <div class="row">
-        @foreach (var place in Model.Places)
+        @foreach (var place in Model.travel.Places)
         {
             var photoFileName = "";
             if (place.Photos.Count > 0)
@@ -55,3 +55,4 @@ else
 {
     <div class="alert alert-info" role="alert">Ta podróż nie ma żadnych miejsc :(</div>
 }
+@Html.Partial("_Comment",Model)

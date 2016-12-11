@@ -22,7 +22,6 @@ namespace Traveler.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            //Configuration.ProxyCreationEnabled = false;
         }
 
         public static ApplicationDbContext Create()
@@ -39,5 +38,7 @@ namespace Traveler.Models
         public System.Data.Entity.DbSet<Traveler.Models.Photo> Photos { get; set; }
 
         public System.Data.Entity.DbSet<Traveler.Models.Place> Places { get; set; }
+
+        public System.Data.Entity.DbSet<Traveler.Models.Comment> Comments { get; set; }
     }
 }

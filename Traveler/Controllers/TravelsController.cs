@@ -23,7 +23,7 @@ namespace Traveler.Controllers
         // Display travels which are assigned to current user
         public ActionResult Index()
         {
-            if(TempData["travels"]!= null)
+            if (TempData["travels"] != null)
             {
                 return View(TempData["travels"]);
             }
@@ -31,7 +31,7 @@ namespace Traveler.Controllers
             List<Travel> travel = db.Travels.Include(e => e.Places).Where(t => t.UserID == CurrentUserID).ToList();
             return View(travel);
         }
-      
+
 
         // GET: Travels/Details/5
         public ActionResult Details(int? id)
@@ -40,26 +40,53 @@ namespace Traveler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<Travel> travels = db.Travels.Include(x => x.Places).Where(t => t.TravelID == id).ToList();
-            if (travels.Count == 0)
+            else
+            {
+                ShowTravelViewModel show = PrepareModel(id);
+                if (show == null)
+                {
+                    return View("~/Views/Shared/AccessDeniedError.cshtml");
+                }
+                return View(show);
+            }
+        }
+        [HttpPost]
+        public ActionResult Details(ShowTravelViewModel showTravel)
+        {
+            if (showTravel == null)
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
             }
-            return View(travels.First());
+            db.Entry(showTravel.comment).State = EntityState.Modified;
+            return View(showTravel);
         }
 
         // GET: Travels/Show/5
         [AllowAnonymous]
         public ActionResult Show(int id)
         {
-            Travel travel = db.Travels.Find(id);
-            if (travel == null)
+            ShowTravelViewModel showTravel = PrepareModel(id);
+            if (showTravel == null)
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
             }
-            return View(travel);
+            return View(showTravel);
         }
-       
+        [HttpPost]
+        public ActionResult Show(int id, ShowTravelViewModel showTravel)
+        {
+            if (ModelState.IsValid)
+            {
+                Comment newComment = showTravel.comment;
+                newComment.Date = DateTime.Now;
+                newComment.UserID = User.Identity.GetUserName();
+                db.Comments.Add(newComment);
+                db.SaveChanges();
+            }
+
+            return View(PrepareModel(id));
+        }
+
         // GET: Travels/Create
         public ActionResult Create()
         {
@@ -74,7 +101,7 @@ namespace Traveler.Controllers
             if (ModelState.IsValid)
             {
                 travel.UserID = User.Identity.Name;
-                
+
                 db.Travels.Add(travel);
                 db.SaveChanges();
 
@@ -93,7 +120,7 @@ namespace Traveler.Controllers
             }
             Travel travel = db.Travels.Find(id);
 
-            
+
             if (travel == null || !HasAccess(travel))
             {
                 return View("~/Views/Shared/AccessDeniedError.cshtml");
@@ -155,6 +182,20 @@ namespace Traveler.Controllers
         private Boolean HasAccess(Travel travel)
         {
             return travel.UserID == User.Identity.Name;
+        }
+        private ShowTravelViewModel PrepareModel(int? id)
+        {
+            Travel travel = db.Travels.Find(id);
+            if (travel != null)
+            {
+                ShowTravelViewModel showTravel = new ShowTravelViewModel();
+                showTravel.travel = travel;
+                showTravel.comment = new Comment { TravelID = travel.TravelID, UserID = User.Identity.Name };
+                showTravel.Comments = new List<Comment>(db.Comments.Where(e => e.TravelID == travel.TravelID).ToList());
+                showTravel.comment.Date = DateTime.Now;
+                return showTravel;
+            }
+            return null;
         }
     }
 }

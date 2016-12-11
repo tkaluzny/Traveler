@@ -1,0 +1,53 @@
+﻿@model Traveler.Models.ShowTravelViewModel
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.comment.TravelID)
+
+    <div class="col-md-5">
+        <div class="comment-title">
+            Komentarze
+        </div>
+        @{
+            if (Model.Comments.Count == 0)
+            {
+                <div class="alert alert-warning">
+                    Brak komentarzy dla tej podróży
+                </div>
+            }
+            else
+            {
+                foreach (var item in Model.Comments)
+                {
+                    <div class="comment-body">
+
+                        <div class="span">
+                            (@item.Date.ToString())
+                            <a href="@Url.Action("Show", "Users", new { id = item.UserID } )" style= "color: #000000;" >@item.UserID</a>
+                        </div>
+                        <p>
+                            @item.Text
+                        </p>
+                        <a href="@Url.Action("Delete","Comments",new { id = item.ID })"  style= "color: #000000;">Usuń</a>
+
+                    </div>
+
+                }
+            }
+        }
+    </div>
+
+    <div class="col-md-5">
+        @if (Request.IsAuthenticated)
+        {
+            <div class="comment-add-title">
+                Dodaj komentarz
+            </div>
+            <div class="comment-add">
+                @Html.EditorFor(model => model.comment.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.comment.Text, "", new { @class = "text-danger" })
+                <input type="submit" value="Dodaj" class="btn-success" />
+            </div>
+        }
+    </div>
+            }

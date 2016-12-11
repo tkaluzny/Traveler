@@ -100,3 +100,57 @@ pre {
     display:block;
     padding-bottom: 5px;
 }
+.comment-title{
+    background-color: #9d9d9d;
+    color: white;
+    width: auto;
+    height: 18px;
+    padding-top: 1px;
+    padding-left: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    font-size: 90%;
+    font-family: Verdana;
+}
+.comment-body{  
+    position: relative;
+    margin-top: 4px;
+    width: auto;
+    color: #FFFFFF;
+    padding: 4px;
+    padding-top: 4px;
+    padding-bottom: 6px;
+    background-color: #0482AB;
+    font-size: 90%;
+    text-align: justify;
+    line-height: 1.4;
+}
+.comment-add-title{
+    
+    background-color: #9d9d9d;
+    color: white;
+    width: 300px;
+    height: 18px;
+    padding-top: 1px;
+    padding-left: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    font-size: 90%;
+    font-family: Verdana;
+}
+.comment-add{
+    position: relative;
+    margin-top: 4px;
+    left: 0px;
+    height: auto;
+    width: 300px;
+    border: 0px;
+    padding-top: 2px;
+    padding-left: 10px;
+    padding-right: 2px;
+    padding-bottom: 0px;
+    background-color: #0482AB;
+    color: #FFFFFF;
+}
