@@ -186,6 +186,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -201,6 +202,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ic_landscape_black_48dp_2x.png" />
+    <Content Include="Content\ic_location_city_black_48dp_2x.png" />
+    <Content Include="Content\ic_person_black_48dp_2x.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

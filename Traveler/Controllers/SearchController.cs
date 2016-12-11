@@ -12,34 +12,15 @@ namespace Traveler.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Search
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
-            return View();
-        }
-   
-        [HttpPost]
-        public ActionResult Find([Bind(Include = "Country,City,UserName")]Search search)
-        {
-            
-            Country _country = new Country();
-            City _city = new City();
-            List<Place> li = new List<Place>();
-            if (search.Country != null)
-            {
-                int id = db.Places.Where(e => e.City.Country.Name == search.Country).FirstOrDefault().PlaceID;
-                return RedirectToAction("Show", "Travels", new { ID = id } );
-            }
-            else if (search.City != null)
-            {
-                int id = db.Places.Where(e => e.City.Name == search.City).FirstOrDefault().PlaceID;
-                return RedirectToAction("Show", "Travels", new { ID = id });
-            }
-            else if (search.UserName != null)
-            {
-                string user = db.Users.FirstOrDefault(e => e.UserName == search.UserName).UserName;
-                return RedirectToAction("Show", "Users", new { id = user });
-            }
-            return RedirectToAction("Index", "Home");
+            Search model = new Models.Search {Query = query };
+
+            model.Users = db.Users.Where(u => u.UserName.Contains(query)).Select(u => u.UserName).ToList();
+            model.Countries = db.Countries.Where(c => c.Name.Contains(query)).ToList();
+            model.Cities = db.Cities.Where(c => c.Name.Contains(query)).ToList();
+
+            return View(model);
         }
     }
 }

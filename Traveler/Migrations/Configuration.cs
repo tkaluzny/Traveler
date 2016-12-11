@@ -18,7 +18,17 @@ namespace Traveler.Migrations
             context.Users.AddOrUpdate(u => u.UserName,
                 new ApplicationUser
                 {
-                    UserName = "admin@example.com",
+                    UserName = "user",
+                    Email = "user@example.com",
+                    PasswordHash = passwordHash.HashPassword("Password@123"),
+                    SecurityStamp = "8733aaf3-c0b0-43d4-b0c4-11ab1d276627"
+                });
+
+            context.Users.AddOrUpdate(u => u.UserName,
+                new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = "admin@example.com",
                     PasswordHash = passwordHash.HashPassword("Password@123"),
                     SecurityStamp = "8733aaf3-c0b0-43d4-b0c4-11ab1d276627"
                 });

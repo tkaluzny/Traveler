@@ -7,9 +7,12 @@ namespace Traveler.Models
 {
     public class Search
     {
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string UserName { get; set; }
+        public string Query { get; set; }
 
+        public List<Country> Countries { get; set; }
+
+        public List<City> Cities { get; set; }
+
+        public List<string> Users { get; set; }
     }
 }

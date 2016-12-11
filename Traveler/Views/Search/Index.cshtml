@@ -1,0 +1,74 @@
+﻿@model Traveler.Models.Search
+@{
+    ViewBag.Title = "Szukaj";
+}
+
+<h2>Wyniki wyszukiwania dla wyrażenia "@Model.Query"</h2>
+<hr />
+@if (Model.Users.Count > 0)
+{
+    <h3>Użytkownicy</h3>
+    <br />
+    <div class="row">
+        @foreach (var user in Model.Users)
+        {
+            <a href="@Url.Action("Show", "Users", new { id = user })" class="col-sm-4" style="display: block;">
+                <div class="thumbnail">
+                    <div class="no-photo-thumbnail">
+                        <img src="~/Content/ic_person_black_48dp_2x.png">
+                    </div>
+                </div>
+                <div class="caption">
+                    <h4>@user</h4>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@if (Model.Countries.Count > 0)
+{
+    <h3>Państwa</h3>
+    <br />
+    <div class="row">
+        @foreach (var country in Model.Countries)
+        {
+            <a href="@Url.Action("Country", "Search", new { id = country.CountryID })" class="col-sm-4" style="display: block;">
+                <div class="thumbnail">
+                    <div class="no-photo-thumbnail">
+                        <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                    </div>
+                </div>
+                <div class="caption">
+                    <h4>@country.Name</h4>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@if (Model.Cities.Count > 0)
+{
+    <h3>Miasta </h3>
+    <br />
+    <div class="row">
+        @foreach (var city in Model.Cities)
+        {
+            <a href="@Url.Action("City", "Search", new { id = city.CityID })" class="col-sm-4" style="display: block;">
+                <div class="thumbnail">
+                    <div class="no-photo-thumbnail">
+                        <img src="~/Content/ic_location_city_black_48dp_2x.png">
+                    </div>
+                </div>
+                <div class="caption">
+                    <h4>@city.Name</h4>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@if (Model.Users.Count == 0 && Model.Countries.Count == 0 && Model.Cities.Count == 0)
+{
+    <div class="alert alert-warning">Niestety niczego nie znaleziono :(</div>
+}
