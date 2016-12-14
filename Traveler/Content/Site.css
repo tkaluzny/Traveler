@@ -154,3 +154,17 @@ pre {
     background-color: #0482AB;
     color: #FFFFFF;
 }
+.dl dt{
+    
+    float: left;
+    margin-right: 10px;
+    width: auto;
+    overflow: hidden;
+    clear: left;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dl dd{
+    margin-left: 0px;
+}

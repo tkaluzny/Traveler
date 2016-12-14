@@ -93,31 +93,6 @@
         document.querySelector('#file').addEventListener('change', handleFileSelect, false);
         selDiv = document.querySelector(".selectedFiles");
     }
-
-    function handleFileSelect(e) {
-
-        if (!e.target.files || !window.FileReader) return;
-
-        selDiv.innerHTML = "";
-
-        var files = e.target.files;
-        var filesArr = Array.prototype.slice.call(files);
-        filesArr.forEach(function (f) {
-
-            if (!f.type.match("image.*")) {
-                return;
-            }
-
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var class_ = "SelectedImg";
-                var html = "<img src=\"" + e.target.result + "\" class=" + class_ + ">";
-                selDiv.innerHTML += html;
-            }
-            reader.readAsDataURL(f);
-        });
-
-    }
 </script>
 
 @section Scripts {

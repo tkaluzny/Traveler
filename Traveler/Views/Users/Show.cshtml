@@ -1,9 +1,66 @@
 ﻿@model Traveler.Models.UserViewModel
 @{
-    ViewBag.Title = Model.UserName;
+    ViewBag.Title = Model.User.Nick;
 }
 
-<h2>@Model.UserName</h2>
+<h2>@Model.User.Nick</h2>
+<div class="col-md-2">
+    @if (Model.User.Avatar.IsEmpty())
+    {
+        <img src="~/Content/ic_person_black_48dp_2x.png" class="img-thumbnail" height="100px" width="100px" />
+    }
+</div>
+<div class="col-md-10">
+    <dl class="dl">
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Model.User.Name)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Model.User.Surname)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.Male)
+        </dt>
+        <dd>
+            @(Model.User.Male == 0 ? "Kobieta" : "Meżczyzna")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Model.User.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Model.User.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => Model.User.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => Model.User.Country)
+        </dd>
+    </dl>
+
+</div>
 <hr />
 
 <h3>Podróże</h3>

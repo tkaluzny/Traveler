@@ -40,5 +40,6 @@ namespace Traveler.Models
         public System.Data.Entity.DbSet<Traveler.Models.Place> Places { get; set; }
 
         public System.Data.Entity.DbSet<Traveler.Models.Comment> Comments { get; set; }
+        public System.Data.Entity.DbSet<Traveler.Models.UserData> UserData { get; set; }
     }
 }

@@ -5,6 +5,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Traveler.Models;
+using System.Linq;
+using System.Web.Services;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 
 namespace Traveler.Controllers
 {
@@ -13,6 +18,7 @@ namespace Traveler.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -56,8 +62,10 @@ namespace Traveler.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
-            
-            var model = new IndexViewModel();
+
+            UserData model = new UserData { };
+
+            model = db.UserData.Where(u => u.Nick == User.Identity.Name).FirstOrDefault();
             return View(model);
         }
 
@@ -67,7 +75,44 @@ namespace Traveler.Controllers
         {
             return View();
         }
+        public ActionResult Edit()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var gender = new SelectListItem { Text = "Kobieta", Value = "0" };
+            list.Add(gender);
+            gender = new SelectListItem { Text = "Meżczyzna", Value = "1" };
+            list.Add(gender);
+            ViewData["Male"] = list;
+            UserData model = new UserData { };
 
+            model = db.UserData.Where(u => u.Nick == User.Identity.Name).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "ID,Nick,Name,Surname,Male,Age,City,Country,Avatar")]UserData user, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                string dirPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "uploads");
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+                user.Avatar = user.Avatar + Path.GetExtension(file.FileName);
+                string filePath = Path.Combine(dirPath, user.Avatar);
+                FileStream writeStream = new FileStream(filePath, FileMode.Create);
+                BinaryWriter bw = new BinaryWriter(writeStream);
+                byte[] buff = new byte[file.ContentLength];
+                file.InputStream.Read(buff, 0, file.ContentLength);
+                bw.Write(buff);
+                bw.Close();
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+             
+            }
+            return View(user);
+        }
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
@@ -103,7 +148,8 @@ namespace Traveler.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

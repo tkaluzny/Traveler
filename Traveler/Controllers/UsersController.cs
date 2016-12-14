@@ -16,11 +16,11 @@ namespace Traveler.Controllers
         {
             UserViewModel model = new UserViewModel { };
 
-            IQueryable<ApplicationUser> foundUsers = db.Users.Where(u => u.UserName == id);
+            IQueryable<UserData> foundUsers = db.UserData.Where(u => u.Nick == id);
 
             if (foundUsers.Count() > 0)
             {
-                model.UserName = id;
+                model.User = foundUsers.FirstOrDefault();
                 model.Travels = db.Travels.Where(t => t.UserID == id).ToList();
 
                 return View(model);
