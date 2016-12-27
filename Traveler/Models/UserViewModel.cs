@@ -7,7 +7,7 @@ namespace Traveler.Models
 {
     public class UserViewModel
     {
-        public UserData User { get; set; }
+        public UserData User{ get; set; }
 
         public List<Travel> Travels { get; set; }
     }

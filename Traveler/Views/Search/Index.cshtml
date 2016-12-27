@@ -12,14 +12,22 @@
     <div class="row">
         @foreach (var user in Model.Users)
         {
-            <a href="@Url.Action("Show", "Users", new { id = user })" class="col-sm-4" style="display: block;">
+            <a href="@Url.Action("Show", "Users", new { id = user.Nick })" class="col-sm-4" style="display: block;">
                 <div class="thumbnail">
+                    
+                        @if(user.Avatar.IsEmpty()) {
                     <div class="no-photo-thumbnail">
                         <img src="~/Content/ic_person_black_48dp_2x.png">
                     </div>
+                        }
+                        else
+                        {
+                        <img src="~/uploads/@user.Avatar" height="200px" width="350px">
+                        }
+                   
                 </div>
                 <div class="caption">
-                    <h4>@user</h4>
+                    <h4>@user.Nick</h4>
                 </div>
             </a>
         }
@@ -35,9 +43,26 @@
         {
             <a href="@Url.Action("Country", "Search", new { id = country.CountryID })" class="col-sm-4" style="display: block;">
                 <div class="thumbnail">
+                  @if(Model.CountriesPhoto.Count>0)
+                  { 
+                      foreach(var photo in Model.CountriesPhoto)
+                        {
+                            if(photo.idPlace == country.CountryID)
+                            {
+                                <img src="~/uploads/@photo.photo.FileName"height="200px" width="350px"> 
+                            }
+                            else{
+                                 <div class="no-photo-thumbnail">
+                                    <img src="~/Content/ic_landscape_black_48dp_2x.png" />
+                                </div>
+                             }
+                        }
+                  }else 
+                  {
                     <div class="no-photo-thumbnail">
-                        <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                        <img src="~/Content/ic_landscape_black_48dp_2x.png" />
                     </div>
+                  }
                 </div>
                 <div class="caption">
                     <h4>@country.Name</h4>
@@ -56,9 +81,25 @@
         {
             <a href="@Url.Action("City", "Search", new { id = city.CityID })" class="col-sm-4" style="display: block;">
                 <div class="thumbnail">
-                    <div class="no-photo-thumbnail">
-                        <img src="~/Content/ic_location_city_black_48dp_2x.png">
-                    </div>
+                    @if(Model.CitiesPhoto.Count>0){
+                        foreach(var photo in Model.CitiesPhoto)
+                        {
+                            if(photo.idPlace == city.CityID)
+                            {
+                                 <img src="~/uploads/@photo.photo.FileName" height="200px" width="350px">
+                            }
+                            else{
+                                <div class="no-photo-thumbnail">
+                                    <img src="~/Content/ic_landscape_black_48dp_2x.png" />
+                                </div>
+                            }
+                        }
+                    }else
+                    {
+                        <div class="no-photo-thumbnail">
+                            <img src="~/Content/ic_landscape_black_48dp_2x.png" />
+                        </div>
+                    }
                 </div>
                 <div class="caption">
                     <h4>@city.Name</h4>

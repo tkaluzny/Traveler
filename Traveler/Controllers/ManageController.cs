@@ -63,9 +63,9 @@ namespace Traveler.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-            UserData model = new UserData { };
-
-            model = db.UserData.Where(u => u.Nick == User.Identity.Name).FirstOrDefault();
+            ApplicationUser ap = new ApplicationUser();
+            ap = db.Users.Where(u => u.UserName == User.Identity.Name).First();
+            UserData model = ap.ToUser();
             return View(model);
         }
 
@@ -78,18 +78,20 @@ namespace Traveler.Controllers
         public ActionResult Edit()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            var gender = new SelectListItem { Text = "Kobieta", Value = "0" };
+            var gender = new SelectListItem { Text = "", Value = "0" };
             list.Add(gender);
             gender = new SelectListItem { Text = "Meżczyzna", Value = "1" };
             list.Add(gender);
+            gender = new SelectListItem { Text = "Kobieta", Value = "2" };
+            list.Add(gender);
             ViewData["Male"] = list;
-            UserData model = new UserData { };
-
-            model = db.UserData.Where(u => u.Nick == User.Identity.Name).FirstOrDefault();
+            ApplicationUser ap = new ApplicationUser();
+            ap = db.Users.Where(u => u.UserName == User.Identity.Name).First();
+            UserData model =ap.ToUser();
             return View(model);
         }
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "ID,Nick,Name,Surname,Male,Age,City,Country,Avatar")]UserData user, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Id,Nick,Name,Surname,Male,Age,City,Country,Avatar")]UserData user, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -98,15 +100,24 @@ namespace Traveler.Controllers
                 {
                     Directory.CreateDirectory(dirPath);
                 }
-                user.Avatar = user.Avatar + Path.GetExtension(file.FileName);
-                string filePath = Path.Combine(dirPath, user.Avatar);
-                FileStream writeStream = new FileStream(filePath, FileMode.Create);
-                BinaryWriter bw = new BinaryWriter(writeStream);
-                byte[] buff = new byte[file.ContentLength];
-                file.InputStream.Read(buff, 0, file.ContentLength);
-                bw.Write(buff);
-                bw.Close();
-                db.Entry(user).State = EntityState.Modified;
+                if (file != null)
+                {
+                    user.Avatar = user.Avatar + Path.GetExtension(file.FileName);
+                    string filePath = Path.Combine(dirPath, user.Avatar);
+                    FileStream writeStream = new FileStream(filePath, FileMode.Create);
+                    BinaryWriter bw = new BinaryWriter(writeStream);
+                    byte[] buff = new byte[file.ContentLength];
+                    file.InputStream.Read(buff, 0, file.ContentLength);
+                    bw.Write(buff);
+                    bw.Close();
+                }
+                else
+                {
+                    user.Avatar = null;
+                }
+                ApplicationUser ap = db.Users.Where(e => e.Id == user.ID).First();
+                ap.FromUser(user);
+                db.Entry(ap).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
              

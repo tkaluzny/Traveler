@@ -34,8 +34,8 @@ pre {
 
 .no-photo-thumbnail {
     background-color: #EEEEEE;
-    height: 200px;
-    padding-top: 40px;
+    height: auto;
+    
 }
 .no-photo-thumbnail img {
     margin-left: auto;
@@ -89,9 +89,9 @@ pre {
     padding: 9px 9px 9px 9px;
     border:  1px solid #EEEEEE;
 }
-.img_div_list{
-    height:400px;
-    width: 320px; 
+.img_div_list img{
+    width: 400px;
+    height: 320px; 
 }
 .span_div_list
 {
@@ -167,4 +167,26 @@ pre {
 }
 .dl dd{
     margin-left: 0px;
+}
+#least{
+    min-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 30px 0;
+    position: relative;
+    text-align: center;
+}
+.least-gallery li{
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+.least-gallery li a img{
+    width: 320px;
+    height: 280px;
+}
+.least-gallery li img{
+    width: 320px;
+    height: 280px;
 }

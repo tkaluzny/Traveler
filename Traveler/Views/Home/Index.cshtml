@@ -34,28 +34,36 @@
     }
     <div class="row">
         @{
-            foreach (var item in Model.Travels)
-            {
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <a href="@Url.Action("Show","Travels",new { id = item.TravelID})">
-                            @if (item.Places.Count > 0 && item.Places.First().Photos.Count > 0)
-                            {
-                                <img src="~/uploads/@(item.Places.First().Photos.First().FileName)" />
-                            }
-                            else
-                            {
-                                <div class="no-photo-thumbnail">
-                                    <img src="~/Content/ic_landscape_black_48dp_2x.png">
-                                </div>
-                            }
-                            <div class="caption">
-                                <h5>@item.Name</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            }
+            <section id="least">
+                <ul class="least-gallery">
+                    @foreach (var item in Model.Travels)
+                    {
+                       <li>
+                           <div class="thumbnail">
+                               <a href="@Url.Action("Show","Travels",new { id = item.TravelID})">
+                                   @if (item.Places.Count > 0 && item.Places.First().Photos.Count > 0)
+                                   {
+
+                                       <img src="~/uploads/@(item.Places.First().Photos.First().FileName)" />
+
+                                   }
+                                   else
+                                   {
+                                       <div class="no-photo-thumbnail">
+                                           <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                                       </div>
+                                   }
+                                   <div class="caption">
+                                       <h5>@item.Name</h5>
+                                   </div>
+                               </a>
+
+                           </div>
+
+                        </li>
+                    }
+                </ul>
+            </section>
         }
     </div>
 </div>

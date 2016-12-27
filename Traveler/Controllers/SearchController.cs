@@ -15,10 +15,41 @@ namespace Traveler.Controllers
         public ActionResult Index(string query)
         {
             Search model = new Models.Search {Query = query };
-
-            model.Users = db.Users.Where(u => u.UserName.Contains(query)).Select(u => u.UserName).ToList();
+            PlacePhoto place = new PlacePhoto();
+            Photo p = new Photo();
+            List<ApplicationUser> apList = db.Users.Where(u => u.UserName.Contains(query)).ToList();
+            foreach(var i in apList)
+            {
+                model.Users.Add(i.ToUser());
+            }
             model.Countries = db.Countries.Where(c => c.Name.Contains(query)).ToList();
             model.Cities = db.Cities.Where(c => c.Name.Contains(query)).ToList();
+
+            if(model.Countries.Count > 0)
+            {
+                foreach (var i in model.Countries) {
+                    p = db.Photos.Where(e => e.place.City.Country.Name == i.Name).FirstOrDefault();
+                    if (p != null)
+                    {
+                        place.idPlace = i.CountryID;
+                        place.photo = p;
+                        model.CountriesPhoto.Add(place);
+                    }
+                }
+            }
+            if (model.Cities.Count > 0)
+            {
+                foreach (var i in model.Cities)
+                {
+                    p = db.Photos.Where(e => e.place.City.Name == i.Name).FirstOrDefault();
+                    if (p != null)
+                    {
+                        place.idPlace = i.CityID;
+                        place.photo = p;
+                        model.CitiesPhoto.Add(place);
+                    }
+                }
+            }
 
             return View(model);
         }

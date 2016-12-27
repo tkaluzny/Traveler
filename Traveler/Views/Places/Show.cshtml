@@ -44,17 +44,21 @@ else
     <h3>Zdjęcia</h3>
     <hr />
     <div class="row">
-        @foreach (var photo in Model.Photos)
-        {
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="~/uploads/@photo.FileName">
-                    <div class="caption">
-                        <h5>@photo.Description</h5>
-                    </div>
-                </div>
-            </div>
-        }
+        <section id="least">
+            <ul class="least-gallery">
+                @foreach (var photo in Model.Photos)
+                {
+                    <li>
+                        <div class="thumbnail">
+                            <img src="~/uploads/@photo.FileName">
+                            <div class="caption">
+                                <h5>@photo.Description</h5>
+                            </div>
+                        </div>
+                    </li>
+                }
+             </ul>
+         </section>
     </div>
 }
 

@@ -1,71 +1,79 @@
 ﻿@model Traveler.Models.UserData
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Mój profil";
 }
 
 
     <hr />
 <h2>@Model.Nick</h2>
-    <div class="col-md-2">
-        @if(Model.Avatar.IsEmpty())
+<div class="row">
+    <div class="col-md-3">
+        @if (Model.Avatar.IsEmpty())
         {
-            <img src="~/Content/ic_person_black_48dp_2x.png" class="img-thumbnail" height="250px" width="250px" />
+            <div class="no-photo-thumbnail">
+                <img src="~/Content/ic_person_black_48dp_2x.png" class="img-thumbnail" height="250px" width="250px" />
+            </div>
         }
         else
         {
             <image src="~/uploads/@Model.Avatar" class="img-thumbnail" height="250px" width="250px" />
         }
     </div>
-<div class="col-md-10">
-    <dl class="dl" >
-      
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div class="col-md-9">
+        <dl class="dl">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+               
+                 @(Model.Name.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.Name))
+            </dd>
 
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+            <dd>
+               @(Model.Surname.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.Surname))
+            </dd>
 
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Male)
-        </dt>
-        <dd>
-            @(Model.Male == 0 ? "Kobieta" : "Meżczyzna")
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Male)
+            </dt>
+            <dd>
+                @(Model.Male == 2 ? "Kobieta" : Model.Male == 1 ? "Meżczyzna" : "Brak danych")
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
+            <dt>
+               
+                @Html.DisplayNameFor(model => model.Age)
+            </dt>
+            <dd>
+                @(Model.Age == 0 ? Html.Label("Brak danych") : Html.DisplayFor(model => model.Age))
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+            <dt>
+               
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd>
+               @(Model.City.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.City))
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-    </dl>
-   
+            <dt>
+
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+            <dd>
+               @(Model.Country.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.Country))
+            </dd>
+        </dl>
+
+    </div>
 </div>
 @Html.ActionLink("Edytuj profil", "Edit")
 @Html.ActionLink("Zmień hasło", "ChangePassword")

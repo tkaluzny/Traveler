@@ -4,111 +4,124 @@
 }
 
 <h2>@Model.User.Nick</h2>
-<div class="col-md-2">
-    @if (Model.User.Avatar.IsEmpty())
-    {
-        <img src="~/Content/ic_person_black_48dp_2x.png" class="img-thumbnail" height="100px" width="100px" />
-    }
-</div>
-<div class="col-md-10">
-    <dl class="dl">
+<div class="row">
+    <div class="col-md-3">
+        <div class="thumbnail">
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.User.Name)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.Surname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.User.Surname)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.Male)
-        </dt>
-        <dd>
-            @(Model.User.Male == 0 ? "Kobieta" : "Meżczyzna")
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.Age)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.User.Age)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.User.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => Model.User.Country)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.User.Country)
-        </dd>
-    </dl>
-
-</div>
-<hr />
-
-<h3>Podróże</h3>
-<hr />
-@if (Model.Travels.Count > 0)
-{
-
-    var travelsCount = Model.Travels.Count > 3 ? 3 : Model.Travels.Count;
-    var travelsColumnNumber = 12 / travelsCount;
-
-
-    <div class="row">
-        @foreach (var travel in Model.Travels)
-        {
-            var photoFileName = "";
-            foreach (var place in travel.Places)
+            @if (Model.User.Avatar.IsEmpty())
             {
-                if (place.Photos.Count > 0)
-                {
-                    photoFileName = place.Photos.First().FileName;
-                    break;
-                }
+                <div class="no-photo-thumbnail">
+                    <img src="~/Content/ic_person_black_48dp_2x.png" height="250px" width="250px">
+                </div>
+            }
+            else
+            {
+                <img src="~/uploads/@Model.User.Avatar" height="250px" width="250px">
             }
 
-            <div class="col-sm-@travelsColumnNumber">
-                <a href="@Url.Action("Show", "Travels", new { id = travel.TravelID })">
-                    <div class="thumbnail">
-                        @if (photoFileName.IsEmpty())
-                        {
-                            <div class="no-photo-thumbnail">
-                                <img src="~/Content/ic_landscape_black_48dp_2x.png">
-                            </div>
-                        }
-                        else
-                        {
-                            <img src="~/uploads/@photoFileName">
-                        }
-                        <div class="caption">
-                            <h3>@travel.Name</h3>
-                            <h5>@travel.Description</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        }
+        </div>
+
     </div>
-}
-else
-{
-    <div class="alert alert-info" role="alert">Ten użytkownik nie dodał żadnych podróży :(</div>
-}
+
+    <div class="col-md-9">
+        <dl class="dl">
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.User.Name)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.Surname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.User.Surname)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.Male)
+            </dt>
+            <dd>
+                @(Model.User.Male == 0 ? "Kobieta" : "Meżczyzna")
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.Age)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.User.Age)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.User.City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => Model.User.Country)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => Model.User.Country)
+            </dd>
+        </dl>
+
+    </div>
+    <hr />
+</div>
+    <h3>Podróże</h3>
+    <hr />
+    @if (Model.Travels.Count > 0)
+    {
+
+        var travelsCount = Model.Travels.Count > 3 ? 3 : Model.Travels.Count;
+        var travelsColumnNumber = 12 / travelsCount;
+
+
+        <div class="row">
+            @foreach (var travel in Model.Travels)
+            {
+                var photoFileName = "";
+                foreach (var place in travel.Places)
+                {
+                    if (place.Photos.Count > 0)
+                    {
+                        photoFileName = place.Photos.First().FileName;
+                        break;
+                    }
+                }
+
+                <div class="col-sm-@travelsColumnNumber">
+                    <a href="@Url.Action("Show", "Travels", new { id = travel.TravelID })">
+                        <div class="thumbnail">
+                            @if (photoFileName.IsEmpty())
+                            {
+                                <div class="no-photo-thumbnail">
+                                    <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                                </div>
+                            }
+                            else
+                            {
+                                <img src="~/uploads/@photoFileName">
+                            }
+                            <div class="caption">
+                                <h3>@travel.Name</h3>
+                                <h5>@travel.Description</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">Ten użytkownik nie dodał żadnych podróży :(</div>
+    }

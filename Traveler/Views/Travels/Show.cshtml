@@ -12,47 +12,48 @@
 
 <h3>Miejsca</h3>
 <hr />
-@if (Model.travel.Places.Count > 0)
-{
-
-    var placesCount = Model.travel.Places.Count > 3 ? 3 : Model.travel.Places.Count;
-    var placesColumnNumber = 12 / placesCount;
-
-
-    <div class="row">
-        @foreach (var place in Model.travel.Places)
-        {
-            var photoFileName = "";
-            if (place.Photos.Count > 0)
-            {
-                photoFileName = place.Photos.First().FileName;
-            }
-
-            <div class="col-sm-@placesColumnNumber">
-                <a href="@Url.Action("Show", "Places", new { id = place.PlaceID })">
-                    <div class="thumbnail">
-                        @if (photoFileName.IsEmpty())
+<div class="row">
+    @if (Model.travel.Places.Count > 0)
+    {
+        <section id="least">
+            <ul class="least-gallery">
+                @foreach (var place in Model.travel.Places)
+                {
+                    <li>
+                        @{var photoFileName = "";}
+                        @if (place.Photos.Count > 0)
                         {
-                            <div class="no-photo-thumbnail">
-                                <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                        photoFileName = place.Photos.First().FileName;
+                        }
+
+
+                        <a href="@Url.Action("Show", "Places", new { id = place.PlaceID })">
+                            <div class="thumbnail">
+                                @if (photoFileName.IsEmpty())
+                                {
+                                    <div class="no-photo-thumbnail">
+                                        <img src="~/Content/ic_landscape_black_48dp_2x.png">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/@photoFileName">
+                                }
+                                <div class="caption">
+                                    <h3>@place.Name</h3>
+                                    <h5>@place.City.Name, @place.City.Country.Name</h5>
+                                </div>
                             </div>
-                        }
-                        else
-                        {
-                            <img src="~/uploads/@photoFileName">
-                        }
-                        <div class="caption">
-                            <h3>@place.Name</h3>
-                            <h5>@place.City.Name, @place.City.Country.Name</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        }
-    </div>
-}
-else
-{
-    <div class="alert alert-info" role="alert">Ta podróż nie ma żadnych miejsc :(</div>
-}
+                        </a>
+                    </li>
+                }
+            </ul>
+        </section>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">Ta podróż nie ma żadnych miejsc :(</div>
+    }
+</div>
+
 @Html.Partial("_Comment",Model)

@@ -13,6 +13,14 @@ namespace Traveler.Models
 
         public List<City> Cities { get; set; }
 
-        public List<string> Users { get; set; }
+        public List<UserData> Users = new List<UserData>();
+        public List<PlacePhoto> CountriesPhoto = new List<PlacePhoto>();
+        public List<PlacePhoto> CitiesPhoto = new List<PlacePhoto>();
     }
+    public class PlacePhoto
+    {
+        public int idPlace { get; set; }
+        public Photo photo { get; set; }
+    }
+   
 }
