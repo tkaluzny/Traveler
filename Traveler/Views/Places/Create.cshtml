@@ -35,6 +35,7 @@
             <label for="Country" class="control-label col-md-2">Państwo</label>
             <div class="col-md-10">
                 @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @onchange = "onCountrySelect(this.value)" })
+                <a href="@Url.Action("Create", "Countries") ">Dodaj brakujące państwo</a>
             </div>
         </div>
 
@@ -42,6 +43,7 @@
             <label for="City" class="control-label col-md-2">Miasto</label>
             <div class="col-md-10">
                 <select id="City" name="CityID" class="form-control"></select>
+                <a href="@Url.Action("Create", "Cities") ">Dodaj brakujące miasto</a>
             </div>
         </div>
 

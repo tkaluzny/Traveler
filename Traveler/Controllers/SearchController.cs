@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Traveler.Models;
@@ -52,6 +53,20 @@ namespace Traveler.Controllers
             }
 
             return View(model);
+        }
+        public ActionResult Country(string countryName )
+        {
+            if(countryName == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            List<Place> places = db.Places.Where(e => e.City.Country.Name == countryName).ToList();
+            return View(places);
+        }
+        public ActionResult City(string cityName)
+        {
+            if (cityName == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            List<Place> places = db.Places.Where(e => e.City.Name == cityName).ToList();
+            return View(places);
         }
     }
 }

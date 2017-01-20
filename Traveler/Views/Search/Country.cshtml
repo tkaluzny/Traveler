@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Traveler.Models.Place> 
+@{
+    ViewBag.Title = "Country";
+}
+
+<h2>Miejsca w państwie @Model.First().City.Country.Name</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Show", "Places", new { id = item.PlaceID })" class="col-sm-4" style="display: block;">
+            <div class="thumbnail">
+
+                @if (item.Photos.Count == 0)
+                {
+                    <div class="no-photo-thumbnail">
+                        <img src="~/Content/ic_person_black_48dp_2x.png">
+                    </div>
+                }
+                else
+                {
+                    <img src="~/uploads/@item.Photos.First().FileName" height="200px" width="350px">
+                }
+
+            </div>
+            <div class="caption">
+                <h4>@item.Name</h4>
+            </div>
+        </a>
+    }
+</div>

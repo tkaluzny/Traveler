@@ -54,11 +54,11 @@ namespace Traveler.Controllers
             {
                 db.Cities.Add(city);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Travels");
             }
 
             ViewBag.CountryID = new SelectList(db.Countries, "CountryID", "Name", city.CountryID);
-            return View(city);
+            return RedirectToAction("Index", "Home"); ;
         }
 
         // GET: Cities/Edit/5

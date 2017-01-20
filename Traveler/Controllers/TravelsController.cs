@@ -96,7 +96,7 @@ namespace Traveler.Controllers
         // POST: Travels/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description")] Travel travel, FormCollection formCollection, HttpPostedFileBase[] file)
+        public ActionResult Create([Bind(Include = "Name,Description")] Travel travel)
         {
             if (ModelState.IsValid)
             {

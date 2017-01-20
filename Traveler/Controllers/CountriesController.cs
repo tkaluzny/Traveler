@@ -52,10 +52,10 @@ namespace Traveler.Controllers
             {
                 db.Countries.Add(country);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Travels");
             }
 
-            return View(country);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Countries/Edit/5

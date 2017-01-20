@@ -1,4 +1,5 @@
 ﻿@model Traveler.Models.ShowTravelViewModel
+@using Microsoft.AspNet.Identity
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -28,7 +29,7 @@
                             <p>
                                 @item.Text
                             </p>
-                           @if (Request.IsAuthenticated)
+                           @if (Request.IsAuthenticated && item.UserID == User.Identity.GetUserName())
                            {
                                <a href="@Url.Action("Delete", "Comments", new { id = item.ID })" style="color: #000000;">Usuń</a>
                            }

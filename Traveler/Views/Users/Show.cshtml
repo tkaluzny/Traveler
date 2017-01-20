@@ -26,50 +26,54 @@
     <div class="col-md-9">
         <dl class="dl">
 
-            <dt>
-                @Html.DisplayNameFor(model => Model.User.Name)
+           <dt>
+                @Html.DisplayNameFor(model => model.User.Name)
             </dt>
             <dd>
-                @Html.DisplayFor(model => Model.User.Name)
+               
+                 @(Model.User.Name.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.User.Name))
             </dd>
 
 
 
             <dt>
-                @Html.DisplayNameFor(model => Model.User.Surname)
+                @Html.DisplayNameFor(model => model.User.Surname)
             </dt>
             <dd>
-                @Html.DisplayFor(model => Model.User.Surname)
+               @(Model.User.Surname.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.User.Surname))
             </dd>
 
 
 
             <dt>
-                @Html.DisplayNameFor(model => Model.User.Male)
+                @Html.DisplayNameFor(model => model.User.Male)
             </dt>
             <dd>
-                @(Model.User.Male == 0 ? "Kobieta" : "Meżczyzna")
+                @(Model.User.Age == 2 ? "Kobieta" : Model.User.Male == 1 ? "Meżczyzna" : "Brak danych")
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => Model.User.Age)
+               
+                @Html.DisplayNameFor(model => model.User.Age)
             </dt>
             <dd>
-                @Html.DisplayFor(model => Model.User.Age)
+                @(Model.User.Age == 0 ? Html.Label("Brak danych") : Html.DisplayFor(model => model.User.Age))
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => Model.User.City)
+               
+                @Html.DisplayNameFor(model => model.User.City)
             </dt>
             <dd>
-                @Html.DisplayFor(model => Model.User.City)
+               @(Model.User.City.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.User.City))
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => Model.User.Country)
+
+                @Html.DisplayNameFor(model => model.User.Country)
             </dt>
             <dd>
-                @Html.DisplayFor(model => Model.User.Country)
+               @(Model.User.Country.IsEmpty() ? Html.Label("Brak danych") : Html.DisplayFor(model => model.User.Country))
             </dd>
         </dl>
 

@@ -41,7 +41,7 @@
     <div class="row">
         @foreach (var country in Model.Countries)
         {
-            <a href="@Url.Action("Country", "Search", new { id = country.CountryID })" class="col-sm-4" style="display: block;">
+            <a href="@Url.Action("Country", "Search", new { countryName = country.Name})" class="col-sm-4" style="display: block;">
                 <div class="thumbnail">
                   @if(Model.CountriesPhoto.Count>0)
                   { 
@@ -79,7 +79,7 @@
     <div class="row">
         @foreach (var city in Model.Cities)
         {
-            <a href="@Url.Action("City", "Search", new { id = city.CityID })" class="col-sm-4" style="display: block;">
+            <a href="@Url.Action("City", "Search", new { cityName = city.Name })" class="col-sm-4" style="display: block;">
                 <div class="thumbnail">
                     @if(Model.CitiesPhoto.Count>0){
                         foreach(var photo in Model.CitiesPhoto)
